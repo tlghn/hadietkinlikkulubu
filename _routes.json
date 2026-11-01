@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "include": [
+    "/p/*",
+    "/yazi/*",
+    "/etkinlik/*",
+    "/anket/*",
+    "/grup/*",
+    "/kanal/*",
+    "/@*",
+    "/uygulama",
+    "/uygulama/",
+    "/ai/*",
+    "/davet/*",
+    "/sonuc/*",
+    "/d/*",
+    "/api/elmas-kampanyalari",
+    "/elmas-kampanyalari",
+    "/elmas-kampanyalari.html",
+    "/hp",
+    "/hp/",
+    "/hp/index.html",
+    "/seffaflik",
+    "/seffaflik/"
+  ],
+  "exclude": []
+}

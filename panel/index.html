@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>HADİ Yönetim Paneli</title>
+<link rel="icon" href="../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--h:#F2801F;--a:#1D9AD6;--d:#78BE3A;--i:#A3338C;--pink:#E0407A;--ink:#17344F;--ink2:#3E5770;--ink3:#6B7F92;--paper:#fff;--mist:#F2F6F9;--line:#DCE4EB;--hs:#FEF0E3;--as:#E5F4FB;--ds:#EEF7E5;--gold:#D9A93A}
+*{box-sizing:border-box}
+body{margin:0;font-family:Figtree,system-ui,sans-serif;background:var(--mist);color:var(--ink);font-size:15px}
+h1,h2,h3{font-family:"Bricolage Grotesque",Figtree,sans-serif;margin:0}
+button,input,select,textarea{font:inherit}
+.btn{border:0;border-radius:12px;padding:10px 16px;background:var(--h);color:#fff;font-weight:700;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.red{background:#d64545}
+.btn:disabled{opacity:.5;cursor:default}
+input,select,textarea{border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;color:var(--ink);width:100%}
+label{display:block;font-weight:600;font-size:13px;color:var(--ink2);margin:10px 0 4px}
+#login{max-width:380px;margin:12vh auto;background:#fff;border-radius:22px;padding:28px;box-shadow:0 10px 40px #17344f14}
+#login h1{font-size:26px;margin-bottom:6px}
+.muted{color:var(--ink3)}
+.small{font-size:12.5px}
+header{display:flex;align-items:center;gap:14px;padding:14px 22px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+header img{height:34px;border-radius:8px}
+header h1{font-size:20px;flex:1}
+nav{display:flex;gap:6px;flex-wrap:wrap;padding:12px 22px 0}
+nav button{border:0;background:transparent;padding:9px 14px;border-radius:99px;font-weight:700;color:var(--ink2);cursor:pointer}
+nav button.on{background:var(--ink);color:#fff}
+main{padding:16px 22px 60px;max-width:1400px}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:12px 0}
+.kpi{background:#fff;border-radius:18px;padding:16px;border:1px solid var(--line)}
+.kpi b{display:block;font-size:26px;font-family:"Bricolage Grotesque";margin-top:4px}
+.card{background:#fff;border-radius:18px;padding:16px;border:1px solid var(--line);margin:12px 0;overflow:auto}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:12px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--ink3);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0;background:#fff;cursor:pointer}
+td.num,th.num{text-align:right}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700;background:var(--mist)}
+.pill.on{background:var(--ds);color:#3f7a14}.pill.off{background:var(--hs);color:#a8520c}
+.bar{height:8px;border-radius:99px;background:var(--mist);overflow:hidden;min-width:80px}
+.bar i{display:block;height:100%;background:var(--a)}
+canvas{max-height:300px}
+.hide{display:none!important}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none}
+#toast.show{opacity:1}
+.count{font-size:12px;color:var(--ink3);text-align:right;margin-top:3px}.count.over{color:#d64545;font-weight:700}
+.verdict{border-radius:14px;padding:12px 14px;margin-top:12px;background:var(--ds);color:#3f7a14}
+.verdict.block{background:#fbe6e6;color:#a62f2f}.verdict.mask{background:var(--hs);color:#a8520c}
+.verdict b{display:block;font-size:15px;margin-bottom:4px}.verdict span{display:block;color:var(--ink2);font-size:13px;margin-top:2px}
+.note{border-radius:12px;padding:10px 12px;background:var(--as);color:var(--ink2);font-size:13.5px;margin:10px 0}.note.err{background:#fbe6e6;color:#a62f2f}.note.ok{background:var(--ds);color:#3f7a14}
+.hist{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}.hist div{flex:1;min-width:0}.hist p{margin:3px 0 0;font-size:13px;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.botrow{display:flex;align-items:center;gap:10px;padding:9px 6px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:10px}.botrow:hover,.botrow.sel{background:var(--mist)}.botrow .em{font-size:22px;width:30px;text-align:center}.botrow div{flex:1;min-width:0}.botrow p{margin:2px 0 0;font-size:12.5px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.switch{position:relative;width:40px;height:22px;flex:none}.switch input{opacity:0;width:0;height:0}.switch span{position:absolute;inset:0;background:var(--line);border-radius:99px;transition:.2s;cursor:pointer}.switch span:before{content:"";position:absolute;width:16px;height:16px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}.switch input:checked+span{background:var(--d)}.switch input:checked+span:before{transform:translateX(18px)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:var(--as);font-size:13px;font-weight:600}.chip button{border:0;background:none;cursor:pointer;color:var(--ink3);padding:0;font-size:14px;line-height:1}
+.pick{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:99px;border:1px solid var(--line);cursor:pointer;font-size:13.5px;font-weight:600;user-select:none;background:#fff}.pick.on{background:var(--ink);color:#fff;border-color:var(--ink)}.pick.dis{opacity:.55}
+.bubble{margin-top:12px;display:flex;gap:10px;align-items:flex-start}.bubble .em{font-size:22px}.bubble div{background:var(--mist);border-radius:4px 16px 16px 16px;padding:10px 13px;white-space:pre-wrap;font-size:14px;max-width:560px}.bubble b{display:block;font-size:12px;color:var(--ink3);margin-bottom:3px}
+.roomrow{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}.roomrow>b{min-width:130px;padding-top:6px}
+.thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;background:var(--mist)}
+.sprow{padding:12px 0;border-bottom:1px solid var(--line)}.sprow:last-child{border-bottom:0}.sprow.dirty{box-shadow:inset 3px 0 0 var(--h);padding-left:10px}.sphead{display:flex;gap:12px;align-items:flex-start}
+#spBar{position:sticky;bottom:0;display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 14px;margin-top:12px;box-shadow:0 -6px 24px #17344f1f;z-index:4}#spBar span{flex:1;font-weight:700}
+@media(max-width:640px){main,nav,header{padding-left:16px;padding-right:16px}.grid2{grid-template-columns:1fr}#who{display:none}header h1{font-size:17px}}
+</style>
+</head>
+<body>
+
+<section id="login" class="hide">
+  <img src="../assets/img/hadi-logo.jpg" alt="" style="height:54px;border-radius:12px;margin-bottom:12px">
+  <h1>Yönetim Paneli</h1>
+  <p class="muted">Yalnızca kurucular ve yöneticiler girebilir. Uygulamadaki telefon numaranla giriş yap.</p>
+  <div id="stepPhone">
+    <label>Telefon</label>
+    <input id="phone" placeholder="5xx xxx xx xx" inputmode="tel">
+    <div style="height:12px"></div>
+    <button class="btn" id="sendCode" style="width:100%">Kod gönder</button>
+  </div>
+  <div id="stepCode" class="hide">
+    <label>SMS kodu</label>
+    <input id="code" placeholder="123456" inputmode="numeric">
+    <div style="height:12px"></div>
+    <button class="btn" id="verify" style="width:100%">Giriş yap</button>
+  </div>
+  <p id="loginErr" class="small" style="color:#d64545"></p>
+  <div id="recaptcha"></div>
+</section>
+
+<section id="app" class="hide">
+  <header>
+    <img src="../assets/img/hadi-logo.jpg" alt="">
+    <h1>HADİ Yönetim Paneli</h1>
+    <span id="who" class="muted small"></span>
+    <button class="btn ghost" id="logout">Çıkış</button>
+  </header>
+  <nav id="tabs">
+    <button data-t="overview" class="on">Genel bakış</button>
+    <button data-t="screens">Ekranlar ve akış</button>
+    <button data-t="content">İçerik izlenme</button>
+    <button data-t="actions">Etkileşimler</button>
+    <button data-t="user">Üye olay akışı</button>
+    <button data-t="ads">Sponsorlu reklamlar</button>
+    <button data-t="promos">Tanıtımlar</button>
+    <button data-t="appeals">Reklam etiketi itirazları</button>
+    <button data-t="hidden">Gizlenen gönderiler</button>
+    <button data-t="premium">Premium</button>
+    <button data-t="ai">Yapay zekâ</button>
+    <button data-t="bots">Botlar</button>
+    <button data-t="version">Sürüm</button>
+    <button data-t="nudges">İpuçları</button>
+    <button data-t="aivideo">AI video</button>
+    <button data-t="prices">Fiyatlar</button>
+    <button data-t="hpbank">HP Bankası</button>
+    <button data-t="donations">Bağışlar</button>
+    <button data-t="economy">Ekonomi</button>
+    <button data-t="quiz">Yarışmalar</button>
+    <button data-t="rides">Yolculuklar</button>
+    <button data-t="mevents">Üye etkinlikleri</button>
+    <button data-t="roles">Roller</button>
+    <button data-t="payments" class="hide" id="payTabBtn">Ödemeler</button>
+    <button data-t="radio" id="radioTabBtn">Radyo</button>
+    <button data-t="support" id="supportTabBtn">Destek masası</button>
+    <button data-t="idrev" id="idRevTabBtn">Kimlik doğrulama</button>
+    <button data-t="addrrev" id="addrRevTabBtn">Adres belgeleri</button>
+    <button data-t="kahvesafe" id="kahveSafeTabBtn">Kahve güvenliği</button>
+    <button data-t="business" id="businessTabBtn">İşletmeler</button>
+  </nav>
+  <main>
+    <div class="row" id="rangeRow">
+      <div style="width:180px"><label>Dönem</label>
+        <select id="days"><option value="7">Son 7 gün</option><option value="14" selected>Son 14 gün</option><option value="30">Son 30 gün</option><option value="90">Son 90 gün</option></select>
+      </div>
+      <button class="btn ghost" id="reload">Yenile</button>
+      <span class="muted small" id="stamp"></span>
+    </div>
+
+    <!-- Genel bakış -->
+    <div data-p="overview">
+      <div class="kpis" id="kpis"></div>
+      <div class="grid2">
+        <div class="card"><h3>Günlük aktif üye</h3><canvas id="cDau"></canvas></div>
+        <div class="card"><h3>Oturum sayısı ve ortalama süre (dk)</h3><canvas id="cSess"></canvas></div>
+        <div class="card"><h3>İzleme süresi (dk) — tür bazında</h3><canvas id="cWatch"></canvas></div>
+        <div class="card"><h3>Olaylar</h3><div id="evTable"></div></div>
+      </div>
+    </div>
+
+    <!-- Ekranlar -->
+    <div data-p="screens" class="hide">
+      <div class="grid2">
+        <div class="card"><h3>Ekranlar</h3><p class="muted small">Ziyaret, toplam ve ortalama kalma süresi (seçili dönem).</p><div id="scrTable"></div></div>
+        <div class="card"><h3>En sık geçişler</h3><p class="muted small">Hangi ekrandan nereye gidildi.</p><div id="flowTable"></div></div>
+      </div>
+    </div>
+
+    <!-- İçerik -->
+    <div data-p="content" class="hide">
+      <div class="row">
+        <div style="width:200px"><label>Tür</label>
+          <select id="kind"><option value="all">Hepsi</option><option value="post">Gönderi</option><option value="video">Akış videosu</option><option value="reel">An (Reels)</option><option value="story">Story</option><option value="chain">Zincir Hikâye</option><option value="live">Canlı yayın</option></select>
+        </div>
+      </div>
+      <div class="card"><h3>En çok izlenen içerikler (tüm zamanlar)</h3>
+        <p class="muted small">Görüntülenme · toplam ve ortalama izleme · ne kadarının izlendiği · sonuna kadar izleme · geçilme (story'de sonraki, akışta kaydırma) · sesli izleme.</p>
+        <div id="contentTable"></div></div>
+    </div>
+
+    <!-- Etkileşimler -->
+    <div data-p="actions" class="hide">
+      <div class="card"><h3>Günlük etkileşimler</h3><canvas id="cAct"></canvas></div>
+      <div class="card"><div id="actTable"></div></div>
+    </div>
+
+    <!-- Üye olay akışı -->
+    <div data-p="user" class="hide">
+      <div class="card">
+        <h3>Üye olay akışı</h3>
+        <p class="muted small">Yalnızca kullanım verisi paylaşımına açık rıza veren üyeler için vardır (son 180 gün). Her görüntüleme kayda geçer.</p>
+        <div class="row"><div style="flex:1;min-width:260px"><label>Üye kimliği (uid)</label><input id="uid"></div><button class="btn" id="loadUser">Getir</button></div>
+        <div id="userTable" style="margin-top:12px"></div>
+      </div>
+    </div>
+
+    <!-- Sponsorlu reklamlar -->
+    <div data-p="ads" class="hide">
+      <div class="grid2">
+        <div class="card">
+          <h3 id="adFormTitle">Yeni sponsorlu reklam</h3>
+          <p class="muted small">Akışta "Sponsorlu" etiketiyle görünür. Hedefleme yalnızca il ve ilgi alanıyla yapılır.</p>
+          <input type="hidden" id="adId">
+          <label>Firma</label><input id="adAdv" maxlength="80">
+          <label>Başlık</label><input id="adTitle" maxlength="80">
+          <label>Açıklama</label><textarea id="adText" rows="3" maxlength="500"></textarea>
+          <div class="row">
+            <div style="flex:2;min-width:200px"><label>Bağlantı (https://)</label><input id="adLink"></div>
+            <div style="flex:1;min-width:120px"><label>Düğme</label><input id="adCta" value="İncele" maxlength="24"></div>
+          </div>
+          <label>Görsel ya da video</label><input type="file" id="adFile" accept="image/*,video/*">
+          <div class="small muted" id="adMediaNow"></div>
+          <div class="row">
+            <div style="flex:1;min-width:150px"><label>Başlangıç</label><input type="datetime-local" id="adStart"></div>
+            <div style="flex:1;min-width:150px"><label>Bitiş</label><input type="datetime-local" id="adEnd"></div>
+          </div>
+          <div class="row">
+            <div style="flex:1;min-width:120px"><label>Kaç gönderide bir</label><input type="number" id="adEvery" value="6" min="3" max="30"></div>
+            <div style="flex:1;min-width:120px"><label>Gösterim sınırı (0 = yok)</label><input type="number" id="adMax" value="0" min="0"></div>
+            <div style="flex:1;min-width:120px"><label>Durum</label><select id="adStatus"><option value="active">Yayında</option><option value="paused">Duraklatıldı</option><option value="ended">Bitti</option></select></div>
+          </div>
+          <label>İller (virgülle, boş = hepsi)</label><input id="adCities" placeholder="İstanbul, Ankara">
+          <label>İlgi alanları (virgülle, boş = hepsi)</label><input id="adInterests" placeholder="Müzik, Spor">
+          <div style="height:14px"></div>
+          <div class="row"><button class="btn" id="adSave">Kaydet</button><button class="btn ghost" id="adNew">Temizle</button></div>
+        </div>
+        <div class="card"><h3>Reklamlar</h3><div id="adTable"></div></div>
+      </div>
+    </div>
+
+    <!-- Tanıtımlar -->
+    <div data-p="promos" class="hide">
+      <div class="card"><h3>Üye tanıtımları</h3>
+        <p class="muted small">Peşin ödenmiş gönderi tanıtımları. Durdurursan ulaşılmayan kısım üyeye iade edilir.</p>
+        <div id="promoTable"></div></div>
+    </div>
+
+    <!-- İtirazlar -->
+    <div data-p="appeals" class="hide">
+      <div class="card"><h3>#reklam / #işbirliği itirazları</h3>
+        <p class="muted small">Yapay zekânın eklediği etikete itiraz eden üyeler. Etiketi kaldırabilir ya da koruyabilirsin.</p>
+        <div id="appealTable"></div></div>
+    </div>
+    <!-- Gizlenen gönderiler (contentMod) -->
+    <div data-p="hidden" class="hide">
+      <div class="card"><h3>Gizlenen gönderiler</h3>
+        <p class="muted small">Kurucuların ve "Gönderiyi gizle" yetkili rollerin tüm uygulamada gizlediği gönderi, yazı, an, story ve yorumlar. Yalnızca sahibi görür; sahibinin itirazı varsa burada çıkar.</p>
+        <label class="small"><input type="checkbox" id="hiddenAppealsOnly"> Yalnızca itirazlar</label>
+        <div id="hiddenTable"></div></div>
+    </div>
+    <!-- Premium -->
+    <div data-p="premium" class="hide">
+      <div class="grid2">
+        <div class="card">
+          <h3>Fiyatlar</h3>
+          <p class="muted small" id="prNote">Fiyatları yalnızca ana kurucu değiştirebilir. Kaydedince Google Play'deki Türkiye fiyatı da güncellenir (yeni aboneler için).</p>
+          <div class="row">
+            <div style="flex:1;min-width:140px"><label>Aylık (TL)</label><input id="prMonthly" type="number" step="0.01"></div>
+            <div style="flex:1;min-width:140px"><label>Yıllık (TL)</label><input id="prYearly" type="number" step="0.01"></div>
+          </div>
+          <label>Ayrıcalıklar (her satır bir madde)</label><textarea id="prPerks" rows="6"></textarea>
+          <div style="height:12px"></div>
+          <button class="btn" id="prSave">Kaydet ve Play'e uygula</button>
+        </div>
+        <div class="card">
+          <h3>Premium ver</h3>
+          <div class="row">
+            <div style="flex:2;min-width:200px"><label>Üye kimliği (uid)</label><input id="prUid"></div>
+            <div style="flex:1;min-width:120px"><label>Süre</label><select id="prDays"><option value="30">30 gün</option><option value="90">3 ay</option><option value="365">1 yıl</option><option value="0">Süresiz</option></select></div>
+          </div>
+          <label>Gerekçe (zorunlu, en az 10 karakter)</label><textarea id="prReason" rows="2" maxlength="300" placeholder="Neden? Örn. Etkinlik gönüllüsü, 3 aylık teşekkür."></textarea>
+          <p class="muted small">Veren, tarih, süre ve gerekçe kayda geçer; Premium üyeler listesinde "Yönetim tarafından verildi" olarak görünür.</p>
+          <div style="height:12px"></div>
+          <div class="row"><button class="btn" id="prGrant">Ver</button><button class="btn red" id="prRevoke">Kaldır</button></div>
+          <h3 style="margin-top:20px">Premium üyeler</h3>
+          <div id="prTable"></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h3>Premium verme geçmişi</h3>
+        <div id="prGrants"></div>
+      </div>
+    </div>
+    <!-- Yapay zekâ: moderasyon talimatları -->
+    <div data-p="ai" class="hide">
+      <div class="grid2">
+        <div class="card">
+          <h3>Moderasyon talimatları</h3>
+          <p class="muted small">Bekleme Salonu denetimine ve HADİ Rehber'e kulübün ek kurallarını yaz: neyin serbest, neyin yasak olduğunu örneklerle anlat. Temel güvenlik kuralları (iletişim bilgisi, çocuk istismarı, terör, tehdit vb.) bu metinle gevşetilemez. Kaydetmek yalnızca ana kurucuya açıktır.</p>
+          <div id="aiDefault" class="note hide">Henüz kaydedilmiş talimat yok; aşağıdaki varsayılan metin kullanılıyor. Düzenleyip kaydedebilirsin.</div>
+          <label for="aiMod">Moderasyon ek kuralları</label>
+          <textarea id="aiMod" rows="10" maxlength="3000" placeholder="Saygılı flört, iltifat ve hoş sözler serbesttir (&quot;çok güzelsin&quot;, &quot;gülüşün çok tatlı&quot;, &quot;etkinlikte görüşelim mi?&quot;).&#10;YASAK: açık cinsel içerik, bedene yönelik cinsel yorum, istemediğini söyleyen birine ısrar, aşağılama."></textarea>
+          <div class="count" id="aiModCount"></div>
+          <label for="aiBot">HADİ Rehber ek talimatları</label>
+          <textarea id="aiBot" rows="5" maxlength="2000" placeholder="ör. Adaylara bu ay yapılacak piknik etkinliğinden bahset. Daha esprili ve kısa cevap ver."></textarea>
+          <div class="count" id="aiBotCount"></div>
+          <div style="height:10px"></div>
+          <button class="btn" id="aiSave" disabled>Talimatları kaydet</button>
+          <div id="aiMsg" class="note hide"></div>
+        </div>
+        <div>
+          <div class="card">
+            <h3>Dene</h3>
+            <p class="muted small">Örnek bir salon mesajını soldaki (kaydedilmemiş olsa da) moderasyon kurallarıyla sınıflandırır. Hiçbir şey kaydedilmez.</p>
+            <div class="row">
+              <div style="flex:1;min-width:220px"><label for="aiSample">Örnek mesaj</label><input id="aiSample" maxlength="500" placeholder="ör. Gülüşün çok tatlı, etkinlikte görüşelim mi?"></div>
+              <button class="btn ghost" id="aiTest">Dene</button>
+            </div>
+            <div id="aiResult"></div>
+          </div>
+          <div class="card">
+            <h3>Geçmiş</h3>
+            <p class="muted small">Son 10 sürüm. "Geri yükle" metni alanlara koyar; uygulamak için kaydet.</p>
+            <div id="aiHist"><p class="muted small">Yükleniyor…</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Botlar: kişilikler, deneme ve Bekleme Salonu yerleşimi (botsAdmin) -->
+    <div data-p="bots" class="hide">
+      <div class="grid2">
+        <div>
+          <div class="card">
+            <div class="row" style="justify-content:space-between;align-items:center"><h3>Botlar</h3><button class="btn ghost" id="botNew">+ Yeni bot</button></div>
+            <p class="muted small">Sohbetlere katılan yapay zekâ karakterleri. Anahtarla açıp kapatabilir, düzenlemek için satıra tıklayabilirsin.</p>
+            <div id="botList"><p class="muted small">Yükleniyor…</p></div>
+            <div id="botListMsg" class="note hide"></div>
+          </div>
+          <div class="card">
+            <h3>Bekleme Salonu yerleşimi</h3>
+            <p class="muted small">Adayların bekleme salonlarında hangi botların konuşacağını seç. Gruplar ve kanallar botlarını kendi oluşturma/ayar ekranlarında seçer.</p>
+            <label>Bekleme Salonu (tüm odalar)</label>
+            <div class="chips" id="plAll"></div>
+            <div style="height:8px"></div>
+            <button class="btn" id="plAllSave" disabled>Kaydet</button>
+            <h3 style="margin-top:20px;font-size:16px">Odaya özel</h3>
+            <p class="muted small">Bir oda için ayrı seçim yaparsan o odada "tüm odalar" seçimi yerine bu geçerli olur. Odaya özel seçimden bütün botları çıkarırsan yeniden "tüm odalar" seçimi geçerli olur.</p>
+            <div id="plRooms"><p class="muted small">Yükleniyor…</p></div>
+            <div id="plMsg" class="note hide"></div>
+          </div>
+        </div>
+        <div>
+          <div class="card" id="botEdit">
+            <p class="muted small" id="botEditEmpty">Düzenlemek için soldan bir bot seç ya da yeni bot oluştur.</p>
+            <div id="botForm" class="hide">
+              <h3 id="botFormTitle">Bot</h3>
+              <div id="botSystem" class="note hide">Bu sistem botudur: yalnızca açıklama, kişilik ve açık/kapalı durumu değiştirilebilir; silinemez.</div>
+              <div class="row">
+                <div style="width:90px"><label for="botEmoji">Emoji</label><input id="botEmoji" maxlength="8" placeholder="🤖"></div>
+                <div style="flex:1;min-width:180px"><label for="botName">Ad</label><input id="botName" maxlength="40" placeholder="ör. Kültür Ateşesi"></div>
+              </div>
+              <div class="row" id="botIdRow"><div style="flex:1"><label for="botId">Kimlik (küçük harf, değiştirilemez)</label><input id="botId" maxlength="24" placeholder="ör. kultur"></div></div>
+              <label for="botDesc">Açıklama</label>
+              <textarea id="botDesc" rows="2" maxlength="200" placeholder="Üyelerin göreceği kısa tanıtım"></textarea>
+              <div class="count" id="botDescCount"></div>
+              <label for="botPersona">Kişilik (talimat)</label>
+              <textarea id="botPersona" rows="9" maxlength="3000" placeholder="Nasıl konuşur, nelerden bahseder, nelerden kaçınır…"></textarea>
+              <div class="count" id="botPersonaCount"></div>
+              <label for="botTopicIn">Konular</label>
+              <div class="row"><div style="flex:1"><input id="botTopicIn" maxlength="30" placeholder="Konu yazıp Enter'a bas (ör. sinema)"></div></div>
+              <div class="chips" id="botTopics"></div>
+              <div class="row">
+                <div style="flex:1;min-width:200px"><label for="botChance">Yorum yapma olasılığı: <span id="botChanceV"></span></label><input id="botChance" type="range" min="0" max="100" step="5" style="padding:0"></div>
+                <div style="width:150px"><label for="botMax">Saatte en fazla</label><input id="botMax" type="number" min="0" max="60" step="1"></div>
+              </div>
+              <label style="display:flex;gap:10px;align-items:center"><span class="switch"><input type="checkbox" id="botEnabled"><span></span></span> Açık</label>
+              <div class="note">Alemci alkol/madde özendiremez; Gündem Takipçisi siyasete girmez — temel kurallar ek talimatlarla gevşetilemez.</div>
+              <div class="row"><button class="btn" id="botSave">Kaydet</button><button class="btn red" id="botDelete">Sil</button></div>
+              <div id="botMsg" class="note hide"></div>
+            </div>
+          </div>
+          <div class="card hide" id="botTestCard">
+            <h3>Dene</h3>
+            <p class="muted small">Bir mesaj yaz; seçili botun kayıtlı kişiliğiyle nasıl cevap vereceğini gör. Hiçbir sohbete gönderilmez.</p>
+            <div class="row">
+              <div style="flex:1;min-width:220px"><label for="botTestIn">Örnek mesaj</label><input id="botTestIn" maxlength="500" placeholder="ör. Bu hafta sonu ne yapsak?"></div>
+              <button class="btn ghost" id="botTest">Dene</button>
+            </div>
+            <div id="botTestOut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Sürüm: mağaza güncelleme duyurusu, config/app_version (appVersionAdmin) -->
+    <div data-p="version" class="hide">
+      <div class="note">minBuild altındaki sürümler zorunlu güncelleme ekranı görür; latestBuild yükseldiğinde diğerlerine 'yeni sürüm' önerisi çıkar. Önce Play Console'da yayınla, sonra burayı güncelle.</div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Android</h3>
+          <div id="av-android-cur" class="note">Yükleniyor…</div>
+          <div class="row">
+            <div style="flex:1;min-width:120px"><label for="av-android-latest">Yeni sürüm adı (latest)</label><input id="av-android-latest" maxlength="20" placeholder="1.4.0"></div>
+            <div style="width:130px"><label for="av-android-lb">latestBuild</label><input id="av-android-lb" type="number" min="1" step="1" placeholder="42"></div>
+            <div style="width:130px"><label for="av-android-mb">minBuild</label><input id="av-android-mb" type="number" min="0" step="1" placeholder="38"></div>
+          </div>
+          <label for="av-android-msg">Mesaj (isteğe bağlı)</label>
+          <textarea id="av-android-msg" rows="2" maxlength="500" placeholder="Yenilikler: …"></textarea>
+          <label for="av-android-url">Mağaza bağlantısı</label>
+          <input id="av-android-url" maxlength="500" placeholder="https://play.google.com/store/apps/details?id=…">
+          <label style="display:flex;gap:10px;align-items:center;margin-top:10px"><input type="checkbox" id="av-android-notify" style="width:auto"> Bildirim gönder <span class="muted small">(tüm Android cihazlarına "Yeni sürüm yayında")</span></label>
+          <div style="height:10px"></div>
+          <button class="btn" id="av-android-save" data-avsave="android">Kaydet</button>
+          <div id="av-android-out" class="note hide"></div>
+        </div>
+        <div class="card">
+          <h3>iOS</h3>
+          <div id="av-ios-cur" class="note">Yükleniyor…</div>
+          <div class="row">
+            <div style="flex:1;min-width:120px"><label for="av-ios-latest">Yeni sürüm adı (latest)</label><input id="av-ios-latest" maxlength="20" placeholder="1.4.0"></div>
+            <div style="width:130px"><label for="av-ios-lb">latestBuild</label><input id="av-ios-lb" type="number" min="1" step="1" placeholder="42"></div>
+            <div style="width:130px"><label for="av-ios-mb">minBuild</label><input id="av-ios-mb" type="number" min="0" step="1" placeholder="38"></div>
+          </div>
+          <label for="av-ios-msg">Mesaj (isteğe bağlı)</label>
+          <textarea id="av-ios-msg" rows="2" maxlength="500" placeholder="Yenilikler: …"></textarea>
+          <label for="av-ios-url">Mağaza bağlantısı</label>
+          <input id="av-ios-url" maxlength="500" placeholder="https://apps.apple.com/tr/app/id…">
+          <label style="display:flex;gap:10px;align-items:center;margin-top:10px"><input type="checkbox" id="av-ios-notify" style="width:auto"> Bildirim gönder <span class="muted small">(tüm iOS cihazlarına "Yeni sürüm yayında")</span></label>
+          <div style="height:10px"></div>
+          <button class="btn" id="av-ios-save" data-avsave="ios">Kaydet</button>
+          <div id="av-ios-out" class="note hide"></div>
+        </div>
+      </div>
+    </div>
+    <!-- İpuçları: üye adaylarına rehber balonları + anlık bildirim ipuçları, config/cand_nudges (nudgesAdmin) -->
+    <div data-p="nudges" class="hide">
+      <div class="note">Üye adayları uygulamada belirli aralıklarla küçük rehber balonları görür ("Hey, Etkinlikler sekmesine dokun, seveceksin!"). Anlık bildirim ipuçları yalnızca başvurusu bekleyen ve son 20 saattir uygulamayı açmamış adaylara, günde en çok bir kez seçili saatte gider. Metinlerde <b>{ad}</b> adayın adıyla değişir.</div>
+      <div id="ndCur" class="note">Yükleniyor…</div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Uygulama içi ipuçları</h3>
+          <label style="display:flex;gap:10px;align-items:center"><input type="checkbox" id="ndEnabled" style="width:auto"> Açık</label>
+          <div class="row">
+            <div style="width:170px"><label for="ndInterval">Aralık (dakika)</label><input id="ndInterval" type="number" min="1" max="120" step="1"></div>
+            <div style="width:190px"><label for="ndPerSession">Oturum başına en çok</label><input id="ndPerSession" type="number" min="0" max="20" step="1"></div>
+          </div>
+          <div id="ndMsgs"></div>
+          <div style="height:8px"></div>
+          <button class="btn ghost" id="ndAddMsg">+ İpucu ekle</button>
+        </div>
+        <div class="card">
+          <h3>Anlık bildirim ipuçları</h3>
+          <label style="display:flex;gap:10px;align-items:center"><input type="checkbox" id="ndPushEnabled" style="width:auto"> Açık</label>
+          <div class="row">
+            <div style="width:170px"><label for="ndHour">Gönderim saati (TR)</label><select id="ndHour"></select></div>
+            <div style="width:190px"><label for="ndPerWeek">Haftada en çok</label><input id="ndPerWeek" type="number" min="0" max="7" step="1"></div>
+          </div>
+          <div id="ndPush"></div>
+          <div style="height:8px"></div>
+          <div class="row">
+            <button class="btn ghost" id="ndAddPush">+ Bildirim ekle</button>
+            <button class="btn ghost" id="ndTest">Test bildirimi bana gönder</button>
+          </div>
+          <div id="ndRun" class="muted small" style="margin-top:10px"></div>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn" id="ndSave">Kaydet</button>
+        <button class="btn ghost" id="ndDefaults">Varsayılanları yükle</button>
+      </div>
+      <div id="ndOut" class="note hide"></div>
+    </div>
+    <!-- Fiyatlar: HP ile satılan hizmetler, normal + Premium fiyat, config/service_prices (servicePricing) -->
+    <div data-p="prices" class="hide">
+      <div class="note">HP ile satılan hizmetlerin normal ve Premium fiyatları. <b>0 = ücretsiz.</b> Premium fiyat normal fiyattan büyük olamaz; kapalı hizmetler uygulamada satın alınamaz. Değişiklik geçmişi sunucuda tutulur.</div>
+      <div class="row">
+        <button class="btn ghost" id="spHalf">Premium indirimi %50 uygula</button>
+        <button class="btn ghost" id="spReset">Tümünü varsayılana döndür</button>
+        <button class="btn ghost" id="spReload">Yenile</button>
+      </div>
+      <div id="spOut" class="note hide"></div>
+      <div id="spList"></div>
+      <div id="spBar" class="hide"><span id="spBarText"></span><button class="btn ghost" id="spDiscard">Vazgeç</button><button class="btn" id="spSave">Kaydet</button></div>
+      <!-- Hediyeler: klasik + premium 3D hediye fiyatları, kapalı hediyeler, alıcının ekranında oynama eşiği (config/service_prices.gifts) -->
+      <div class="card" id="gpCard" style="margin-top:18px">
+        <h3>Hediyeler</h3>
+        <p class="muted small">Klasik ve premium 3D hediyelerin HP fiyatları. Kapalı hediye gönderilemez. Eşik ve üstündeki hediyeler alıcının ekranında da oynar. Yalnızca ana kurucu kaydedebilir.</p>
+        <div class="row"><label>Alıcının ekranında oynama eşiği (HP) <input id="gpBig" type="number" min="1" style="width:110px"></label></div>
+        <div id="gpList"></div>
+        <div class="row"><button class="btn" id="gpSave">Hediyeleri kaydet</button></div>
+        <div id="gpOut" class="note hide"></div>
+      </div>
+      <!-- Günlük haklar ve saniye başı ücretler: config/service_prices.hon / beauty / live / now_boost / verified -->
+      <h3 style="margin-top:22px">Günlük haklar ve saniye başı ücretler</h3>
+      <div class="note">Hot or Not günlük ücretsiz fotoğraf ve ek fotoğraf fiyatı, güzellik filtresi günlük ücretsiz hakkı, canlı yayın / sesli oda kaliteleri (HP/sn, en fazla 2 ondalık), yayın ve Şimdi HADİ! öne çıkarma, Doğrulanmış hesap (mavi tik) haftalık fiyatı, hakları ve yakın arkadaş sınırları. Bu bölüm ayrı kaydedilir.</div>
+      <div id="spAdv"></div>
+      <div id="spAdvOut" class="note hide"></div>
+      <div id="spAdvBar" class="row hide" style="align-items:center"><span id="spAdvText" style="flex:1"></span><button class="btn ghost" id="spAdvDiscard">Vazgeç</button><button class="btn" id="spAdvSave">Kaydet</button></div>
+      <!-- Ücretli etkinlik bileti iadesi: config/economy.eventRefund (eventTickets refundPolicy / refundPolicySet) -->
+      <h3 style="margin-top:22px">Etkinlik bileti iadesi</h3>
+      <div class="note">Ücretli etkinliklerin bileti HP ile satılır (etkinlik formunda “Bilet (HP)” ve isteğe bağlı Premium fiyatı). Katılımdan vazgeçen üyeye: başlangıca en az <i>tam iade</i> saati varsa tamamı, en az <i>kısmi</i> saati varsa belirtilen yüzde, daha azsa iade yok. Yönetim etkinliği iptal ederse herkese tam iade + bildirim. Kurucular bilet ücreti ödemez.</div>
+      <div class="row" style="align-items:flex-end">
+        <div style="width:170px"><label for="erFull">Tam iade (saat önce)</label><input id="erFull" type="number" min="0" max="720" step="1"></div>
+        <div style="width:150px"><label for="erPct">Kısmi iade (%)</label><input id="erPct" type="number" min="0" max="100" step="1"></div>
+        <div style="width:170px"><label for="erPartial">Kısmi iade (saat önce)</label><input id="erPartial" type="number" min="0" max="720" step="1"></div>
+        <button class="btn" id="erSave">Kaydet</button>
+      </div>
+      <div id="erOut" class="note hide"></div>
+      <!-- Etkinlik kötüye kullanım ve cezalar: config/eventPolicy (yonetim › eventPolicyAdmin) -->
+      <h3 style="margin-top:22px">Etkinlik kötüye kullanım ve cezalar</h3>
+      <div class="note">Etkinliğe katılıp başlangıca belirlenen süreden fazla varken (iade alarak) ayrılmak <i>erken çıkış</i> sayılır; pencere içinde eşiğe ulaşan üye bayraklanır ve etkinliklere katılamaz. Araç paylaşımında gelmeyen yolcu/sürücü cezaları da buradan yönetilir. 90 gün içinde tekrar eden cezalar çarpanla uzar. Değiştirmek yalnızca ana kurucuya açıktır.</div>
+      <div class="row" style="align-items:flex-end;flex-wrap:wrap"><div style="width:190px"><label for="ep_earlyLeaveHours">Erken çıkış: başlangıca en az (saat)</label><input id="ep_earlyLeaveHours" type="number" min="0" step="any"></div><div style="width:190px"><label for="ep_earlyLeaveCount">Ceza için erken çıkış sayısı</label><input id="ep_earlyLeaveCount" type="number" min="0" step="any"></div><div style="width:190px"><label for="ep_earlyLeaveWindowDays">Sayım penceresi (gün)</label><input id="ep_earlyLeaveWindowDays" type="number" min="0" step="any"></div><div style="width:190px"><label for="ep_earlyLeaveBanDays">Erken çıkış cezası (gün)</label><input id="ep_earlyLeaveBanDays" type="number" min="0" step="any"></div><div style="width:190px"><label for="ep_ridePassengerNoShowBanDays">Gelmeyen yolcu: araç cezası (gün)</label><input id="ep_ridePassengerNoShowBanDays" type="number" min="0" step="any"></div><div style="width:190px"><label for="ep_ridePassengerNoShowEventBanDays">Gelmeyen yolcu: etkinlik cezası (gün)</label><input id="ep_ridePassengerNoShowEventBanDays" type="number" min="0" step="any"></div><div style="width:190px"><label for="ep_rideDriverNoShowBanDays">Gelmeyen sürücü: araç cezası (gün)</label><input id="ep_rideDriverNoShowBanDays" type="number" min="0" step="any"></div><div style="width:190px"><label for="ep_rideDriverNoShowEventBanDays">Gelmeyen sürücü: etkinlik cezası (gün)</label><input id="ep_rideDriverNoShowEventBanDays" type="number" min="0" step="any"></div><div style="width:190px"><label for="ep_repeatMultiplier">Tekrarda süre çarpanı (×)</label><input id="ep_repeatMultiplier" type="number" min="0" step="any"></div><div style="width:260px"><label><input id="ep_payDriver" type="checkbox"> Gelmeyen yolcunun ücreti sürücüye geçsin</label></div><button class="btn" id="epSave">Kaydet</button></div>
+      <div id="epOut" class="note hide"></div>
+      <h4 style="margin-top:14px">Bayraklı üyeler</h4>
+      <div id="epBans" class="small"></div>
+    </div>
+    <!-- Ekonomi: hoş geldin HP'si (config/economy.welcomeHp) + üyeye HP yükle/düş (economyAdmin) -->
+    <div data-p="economy" class="hide">
+      <div class="note">Kurucular sınırsız HP'ye sahiptir: harcamalarında bakiye düşmez ve bütün Premium özellikleri açıktır. Kurucunun gönderdiği hediyeler alıcıya normal yazılır (yeni HP basılır; 100 HP ve üstü hediyeler denetim kaydına düşer). Hoş geldin HP'si ve HP yükleme yalnızca kuruculara açıktır.</div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Hoş geldin HP'si</h3>
+          <p class="muted small">Yeni üyenin cüzdanı ilk açıldığında verilir. Hediye HP yalnızca maliyetsiz hizmetlerde (hediye, öne çıkarma…) harcanır; yatırılmış HP satın alınmış sayılır ve maliyetli hizmetlerde (AI, etkinlik, sipariş…) de geçer. Mevcut cüzdanları etkilemez. Yalnızca ana kurucu değiştirebilir.</p>
+          <div class="row" style="align-items:flex-end"><div style="width:140px"><label for="ecoWelcome">Hediye HP</label><input id="ecoWelcome" type="number" min="0" max="100000" step="1"></div><div style="width:140px"><label for="ecoWelcomeP">Yatırılmış HP</label><input id="ecoWelcomeP" type="number" min="0" max="100000" step="1"></div><button class="btn" id="ecoWelcomeSave">Kaydet</button></div>
+          <p class="muted small" id="ecoWelcomeMeta"></p>
+          <div id="ecoWelcomeOut" class="note hide"></div>
+          <h3 style="margin-top:18px">Davet ödülü</h3>
+          <p class="muted small">Davet edilen üye tüm tek seferlik başlangıç görevlerini tamamlayınca, o ana kadar satın aldığı toplam HP'nin bu yüzdesi davet eden üyeye yatırılmış HP olarak bir kez verilir. Görevler bittiğinde henüz satın alma yoksa ödül ilk satın alımda verilir.</p>
+          <div class="row" style="align-items:flex-end"><div style="width:120px"><label for="ecoRefPct">Oran (%)</label><input id="ecoRefPct" type="number" min="0" max="100" step="0.1"></div><button class="btn" id="ecoRefSave">Kaydet</button></div>
+          <div id="ecoRefOut" class="note hide"></div>
+        </div>
+        <div class="card">
+          <h3>Üyeye HP yükle / düş</h3>
+          <label for="ecoUserQ">Üye</label>
+          <div class="row"><div style="flex:1"><input id="ecoUserQ" placeholder="@kullanıcıadı ya da uid"></div><button class="btn ghost" id="ecoUserFind">Ara</button></div>
+          <div id="ecoUserResults"></div>
+          <p class="small" id="ecoPicked">Üye seçilmedi.</p>
+          <div class="row"><div style="width:160px"><label for="ecoAmount">Tutar (HP)</label><input id="ecoAmount" type="number" min="-100000" max="100000" step="1" placeholder="ör. 500 ya da -200"></div><div style="width:170px"><label for="ecoWallet">HP türü (yüklemede zorunlu)</label><select id="ecoWallet"><option value="">Seç…</option><option value="gift">Hediye HP</option><option value="purchased">Yatırılmış HP</option></select></div><div style="flex:1;min-width:200px"><label for="ecoReason">Açıklama (zorunlu)</label><input id="ecoReason" maxlength="300" placeholder="ör. Etkinlik ödülü"></div></div>
+          <div class="row" style="margin-top:10px"><button class="btn" id="ecoGrant">Uygula</button></div>
+          <div id="ecoGrantOut" class="note hide"></div>
+        </div>
+      </div>
+      <div class="card"><div class="row" style="justify-content:space-between;align-items:center"><h3>Son HP yüklemeleri</h3><button class="btn ghost" id="ecoReload">Yenile</button></div><div id="ecoHistory"><p class="muted small">Yükleniyor…</p></div></div>
+      <!-- Satın almasız HP yüklemeleri (hp_credit_log; economyAdmin creditLog / creditLogCsv / backfillCreditLog) -->
+      <div class="card">
+        <div class="row" style="justify-content:space-between;align-items:center"><h3>Satın almasız HP yüklemeleri</h3><span class="small" id="clTotal"></span></div>
+        <p class="muted small">Üyelere satın alma olmadan geçen bütün HP: yönetim yüklemesi, hoş geldin bakiyesi, kurucu hediyesi, yayın hediye geliri, turnuva ödülü, banka faizi, iadeler, görev/başarı kazançları. Saatler Türkiye saatidir.</p>
+        <div class="row" style="align-items:flex-end">
+          <div style="width:160px"><label for="clFrom">Başlangıç</label><input id="clFrom" type="date"></div>
+          <div style="width:160px"><label for="clTo">Bitiş</label><input id="clTo" type="date"></div>
+          <div style="width:190px"><label for="clKind">Tür</label><select id="clKind"><option value="">Tümü</option></select></div>
+          <div style="flex:1;min-width:180px"><label for="clUser">Üye</label><input id="clUser" placeholder="@kullanıcıadı ya da uid"></div>
+          <button class="btn" id="clApply">Listele</button>
+          <button class="btn ghost" id="clCsv">CSV indir</button>
+        </div>
+        <div id="clOut" class="note hide"></div>
+        <div id="clList"><p class="muted small">Yükleniyor…</p></div>
+        <div class="row" style="margin-top:10px"><button class="btn ghost hide" id="clMore">Daha fazla</button><button class="btn ghost hide" id="clBackfill" title="Son 90 günün yönetim yüklemelerini ve cüzdan defteri kredilerini bu listeye bir kez aktarır">Geçmişi aktar (90 gün)</button></div>
+      </div>
+    </div>
+    <!-- Canlı bilgi yarışmaları (funplay pack*/show*): soru paketleri (AI taslak → kontrol → onay) ve yarışma programı. Ödül: jeton/rozet. -->
+    <div data-p="quiz" class="hide">
+      <div class="note">Canlı bilgi yarışmaları herkes için aynı anda başlar; ödüller yalnızca jeton ve rozettir (HADİ Para yok). Yapay zekânın ürettiği paketler taslaktır: her soruyu ve doğru cevabı kontrol edip onayla. Soruları ayrıntılı düzenlemek için uygulamadaki Gizli menü › Yarışmalar'ı kullan.</div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Yapay zekâyla soru paketi</h3>
+          <div class="row" style="align-items:flex-end"><div style="flex:1;min-width:180px"><label for="qzTopic">Konu</label><input id="qzTopic" maxlength="80" placeholder="ör. Türk mutfağı"></div><div style="width:90px"><label for="qzCount">Soru</label><input id="qzCount" type="number" min="5" max="20" value="10"></div><div style="width:120px"><label for="qzLevel">Zorluk</label><select id="qzLevel"><option value="kolay">Kolay</option><option value="orta" selected>Orta</option><option value="zor">Zor</option></select></div><button class="btn" id="qzGen">Üret</button></div>
+          <div id="qzGenOut" class="note hide"></div>
+          <h3 style="margin-top:16px">Paketler</h3>
+          <div id="qzPacks" class="small"></div>
+          <div id="qzPackView"></div>
+        </div>
+        <div class="card">
+          <h3>Yarışma planla</h3>
+          <label for="qzShowPack">Onaylı paket</label><select id="qzShowPack"></select>
+          <div class="row"><div style="flex:1"><label for="qzShowTitle">Başlık</label><input id="qzShowTitle" maxlength="80"></div><div style="width:200px"><label for="qzShowAt">Başlangıç</label><input id="qzShowAt" type="datetime-local"></div></div>
+          <div class="row"><div style="width:100px"><label for="qzShowN">Soru</label><input id="qzShowN" type="number" min="3" max="30" value="10"></div><div style="width:110px"><label for="qzShowSec">Süre (sn)</label><input id="qzShowSec" type="number" min="8" max="30" value="15"></div><div style="width:150px"><label><input id="qzShowElim" type="checkbox"> Elemeli</label><label><input id="qzShowBadge" type="checkbox" checked> İlk üçe rozet</label></div></div>
+          <div class="row"><div style="width:90px"><label for="qzP1">1. jeton</label><input id="qzP1" type="number" min="0" max="1000" value="300"></div><div style="width:90px"><label for="qzP2">2. jeton</label><input id="qzP2" type="number" min="0" max="1000" value="150"></div><div style="width:90px"><label for="qzP3">3. jeton</label><input id="qzP3" type="number" min="0" max="1000" value="75"></div><div style="width:120px"><label for="qzPart">Katılım jetonu</label><input id="qzPart" type="number" min="0" max="20" value="5"></div></div>
+          <div class="row" style="margin-top:8px"><button class="btn" id="qzShowSave">Planla</button></div>
+          <div id="qzShowOut" class="note hide"></div>
+          <h3 style="margin-top:16px">Program</h3>
+          <div id="qzShows" class="small"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paylaşımlı yolculuk anlaşmazlıkları (rides callable: disputes / resolve). Bloke tutar karar verilene kadar bekler. -->
+    <div data-p="rides" class="hide">
+      <div class="note">Sürücü ile yolcunun bildirimi çeliştiğinde bloke HP burada karara bağlanır. "Sürücüye aktar": yolculuk gerçekleşti. "İade": yolculuk olmadı ya da sorun sürücüde. "Yolcu gelmedi": politika gereği ücret sürücüye/iade + yolcuya araç paylaşımı cezası. Gerekçe zorunlu, karar denetim kaydına düşer. Paylaşımlı yolculuk yalnızca masraf paylaşımıdır (ticari taşımacılık değildir).</div>
+      <div class="card">
+        <div class="row" style="align-items:flex-end"><div style="width:160px"><label for="rdStatus">Durum</label><select id="rdStatus"><option value="open">Açık</option><option value="resolved">Çözülen</option></select></div><button class="btn ghost" id="rdReload">Yenile</button></div>
+        <div id="rdOut" class="note hide"></div>
+        <div id="rdList" class="small" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+    <!-- HP Bankası: HP yatır → vade sonunda HP faiz. config/economy.bank (hpBank adminGet/adminSet/stats; ayar yalnızca kurucu) -->
+    <div data-p="hpbank" class="hide">
+      <div class="note err"><b>⚖️ Hukuki inceleme gerekli.</b> Faiz getiren bu ürün mevduat/yatırım ürününe benzediği için varsayılan olarak <b>KAPALI</b>. Hukuki görüş alınmadan açılmamalı. Kapalıyken yeni mevduat açılamaz; mevcut mevduatlar vade sonunda yine ödenir ve erken çekilebilir.</div>
+      <div class="note">Yıllık faiz sunucuda <b>en fazla %15</b> (ücretli etkinlikler HP ile fiyatlandığı için). Vade oranı = yıllık faiz × çarpan (çarpan ≤ 1). Oran değişikliği yalnızca <b>yeni</b> mevduatlara uygulanır. Faiz: ⌊anapara × oran × gün / 365⌋, vade sonunda ödenir; erken çekişte faiz kaybedilir. Kurucular bankayı kullanamaz. Ayarları yalnızca kurucular değiştirebilir.</div>
+      <div class="card">
+        <label style="display:flex;gap:10px;align-items:center;font-weight:800"><input type="checkbox" id="hbEnabled" style="width:auto"> HP Bankası açık (üyeler HP yatırabilir)</label>
+        <div class="row" style="margin-top:10px">
+          <div style="width:180px"><label for="hbRate">Yıllık faiz % (0 &lt; x ≤ 15)</label><input id="hbRate" type="number" min="0.01" max="15" step="0.01"></div>
+          <div style="width:160px"><label for="hbMin">En az yatırım (HP)</label><input id="hbMin" type="number" min="1" step="1"></div>
+          <div style="width:180px"><label for="hbMax">Kişi başı üst sınır (HP)</label><input id="hbMax" type="number" min="1" step="1"></div>
+          <div style="width:180px"><label for="hbMaxActive">Aynı anda en fazla mevduat</label><input id="hbMaxActive" type="number" min="1" max="50" step="1"></div>
+        </div>
+        <h3 style="margin-top:16px">Vadeler</h3>
+        <div id="hbTerms"></div>
+        <div class="row" id="hbAddTerms"></div>
+        <div id="hbOut" class="note hide"></div>
+        <div class="row"><button class="btn" id="hbSave">Kaydet</button><button class="btn ghost" id="hbReload">Yenile</button><button class="btn ghost" id="hbRecount">İstatistiği yeniden say</button></div>
+      </div>
+      <div class="card"><h3>İstatistik</h3><div id="hbStats"></div></div>
+      <div class="card"><h3>Son ayar değişiklikleri</h3><div id="hbHist"></div></div>
+    </div>
+    <!-- Bağışlar: onaylı bağış kurumları + şirket aktarımı kaydı (donations; yalnızca kurucular) -->
+    <div data-p="donations" class="hide">
+      <div class="note">Üyeler HP'lerini yalnızca burada onaylanan vakıf/dernek/STK'lara bağışlayabilir; HP hemen düşer ve bağış kurumun <b>bekleyen havuzuna</b> girer. HADİ biriken bağışları <b>şirket olarak, kendi adına TL ile</b> kuruma aktarır; aktarımdan sonra <b>Aktarım kaydet</b> ile dekontu girin → seçilen bağışlar "Gerçekleşti" olur ve bağışçılara "Bağışınız gerçekleşti 💚" bildirimi gider. Kurucular bağış yapamaz.</div>
+      <div class="note err"><b>⚖️ Hukuki inceleme gerekli:</b> 2860 sayılı Yardım Toplama Kanunu, bağış makbuzu ve vergi indirimi (GVK 89 / KVK 10) açısından yayından önce hukuki/mali görüş alın. Yalnızca bağış kabul etme yetkisi doğrulanmış kurumları ekleyin.</div>
+      <div class="card">
+        <label style="display:flex;gap:10px;align-items:center;font-weight:800"><input type="checkbox" id="dnEnabled" style="width:auto"> Bağış açık</label>
+        <div class="row" style="margin-top:10px">
+          <div style="width:150px"><label for="dnMin">En az (HP)</label><input id="dnMin" type="number" min="1" step="1"></div>
+          <div style="width:150px"><label for="dnMax">En çok (HP)</label><input id="dnMax" type="number" min="1" step="1"></div>
+          <div style="flex:1;min-width:180px"><label for="dnPresets">Hazır tutarlar (virgülle)</label><input id="dnPresets" placeholder="50, 100, 250, 500, 1000"></div>
+        </div>
+        <div class="row"><button class="btn" id="dnCfgSave">Ayarları kaydet</button><button class="btn ghost" id="dnReload">Yenile</button></div>
+      </div>
+      <div id="dnOut" class="note hide"></div>
+      <div class="card"><h3>Kurumlar ve bekleyen havuzlar</h3><div id="dnOrgs"></div></div>
+      <div class="grid2">
+        <div class="card">
+          <h3 id="dnFormTitle">Kurum ekle</h3>
+          <input type="hidden" id="dnId">
+          <label for="dnName">Kurum adı *</label><input id="dnName" maxlength="100">
+          <label for="dnDative">Yönelme hâli (örn. TEMA Vakfı'na) — boşsa otomatik</label><input id="dnDative" maxlength="120">
+          <label for="dnCat">Kategori</label><select id="dnCat"></select>
+          <label for="dnDesc">Açıklama</label><textarea id="dnDesc" rows="3" maxlength="1000"></textarea>
+          <label for="dnLogo">Logo (https://)</label><input id="dnLogo" maxlength="500">
+          <label for="dnWeb">Web sitesi (https://)</label><input id="dnWeb" maxlength="500">
+          <label for="dnUid">Kurumun uygulama hesabı (uid) — profilde "✅ Onaylı bağış hesabı"</label><input id="dnUid" maxlength="128">
+          <label for="dnRate">1 HP ≈ kaç TL</label><input id="dnRate" type="number" min="0.0001" step="0.0001" value="0.1">
+          <label style="display:flex;gap:10px;align-items:center;margin-top:10px"><input type="checkbox" id="dnActive" style="width:auto" checked> Aktif (bağış kabul ediyor)</label>
+          <div class="row"><button class="btn" id="dnSave">Kaydet</button><button class="btn ghost" id="dnNew">Yeni</button></div>
+        </div>
+        <div class="card">
+          <h3 id="dnPayTitle">Aktarım kaydet</h3>
+          <div class="muted small" id="dnPayInfo">Listeden bir kurumun "Aktarım kaydet" düğmesine basın.</div>
+          <div id="dnPending" style="max-height:280px;overflow:auto"></div>
+          <div class="row">
+            <div style="width:170px"><label for="dnTry">Aktarılan TL *</label><input id="dnTry" type="number" min="0.01" step="0.01"></div>
+            <div style="width:170px"><label for="dnDate">Tarih</label><input id="dnDate" type="date"></div>
+          </div>
+          <label for="dnRUrl">Dekont / makbuz bağlantısı (https://)</label><input id="dnRUrl" maxlength="500">
+          <label for="dnRNo">Dekont / makbuz no</label><input id="dnRNo" maxlength="80">
+          <label for="dnNote">Not (yalnızca yönetim)</label><textarea id="dnNote" rows="2" maxlength="500"></textarea>
+          <label style="display:flex;gap:10px;align-items:center;margin-top:10px"><input type="checkbox" id="dnPublic" style="width:auto" checked> Dekontu bağışçılara göster</label>
+          <div class="row"><button class="btn" id="dnPay" disabled>Aktarımı kaydet ve bildir</button></div>
+        </div>
+      </div>
+      <div class="card"><h3>Aktarım geçmişi</h3><div id="dnHist"></div></div>
+    </div>
+    <!-- Üye etkinlikleri: Premium üyelerin onaya gönderdiği etkinlikler + etkinlik önerileri (memberEvents) -->
+    <div data-p="mevents" class="hide">
+      <div class="note">Premium üyeler etkinliklerini oluşturup onaya gönderir. <b>Onayla</b> → etkinlik “Üye etkinliği · @kullanıcı” etiketiyle yayımlanır ve üyeye bildirim gider. <b>Reddet</b> → gerekçe üyeye iletilir. Öneriler (Temel üyeler, ücretsiz) için durum seçilebilir; üye bildirim alır.</div>
+      <div class="row"><button class="btn ghost" id="meReload">Yenile</button></div>
+      <div id="meOut" class="note hide"></div>
+      <div class="card"><h3>Onay bekleyen etkinlikler</h3><div id="mePending"></div></div>
+      <div class="card"><h3>Öneriler</h3><div id="meSugg"></div></div>
+      <div class="card"><h3>Son kararlar</h3><div id="meRecent"></div></div>
+    </div>
+    <!-- Roller: roles/{id} + rolesAdmin (surface: panel; kurucu rolleri panelde hiç görünmez, yalnızca uygulamadaki gizli menüde) -->
+    <div data-p="roles" class="hide">
+      <div class="grid2">
+        <div>
+          <div class="card">
+            <div class="row" style="justify-content:space-between;align-items:center"><h3>Roller</h3><button class="btn ghost" id="roleNew">+ Yeni rol</button></div>
+            <p class="muted small">Roller üyelere yetki ve profilde emoji rozeti verir. Üstteki rol önce gelir; okla sırala. 🔒 sistem rolleri silinemez.</p>
+            <div id="roleList"><p class="muted small">Yükleniyor…</p></div>
+            <div id="roleListMsg" class="note hide"></div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <p class="muted small" id="roleEditEmpty">Düzenlemek için soldan bir rol seç ya da yeni rol oluştur.</p>
+            <div id="roleForm" class="hide">
+              <h3 id="roleFormTitle">Rol</h3>
+              <div id="roleSystem" class="note hide">Sistem rolü: düzenlenebilir ama silinemez.</div>
+              <div class="row">
+                <div style="width:90px"><label for="roleEmoji">Emoji</label><input id="roleEmoji" maxlength="8" placeholder="⭐" style="font-size:20px;text-align:center"></div>
+                <div style="flex:1;min-width:180px"><label for="roleName">Ad</label><input id="roleName" maxlength="30" placeholder="ör. Sohbet Operatörü"></div>
+              </div>
+              <div class="chips" id="roleEmojiPicks"></div>
+              <label for="roleDesc">Açıklama</label>
+              <textarea id="roleDesc" rows="2" maxlength="160" placeholder="Rozete dokunan üyeler görür"></textarea>
+              <label>Renk</label>
+              <div class="chips" id="roleColors"></div>
+              <label style="display:flex;gap:10px;align-items:center;margin-top:14px"><span class="switch"><input type="checkbox" id="roleVisible"><span></span></span> Rozet görünsün <span class="muted small">— emoji profilde ve isim yanında görünür</span></label>
+              <label style="display:flex;gap:10px;align-items:center"><span class="switch"><input type="checkbox" id="roleScoped"><span></span></span> Kapsamlı rol <span class="muted small">— kanal / grup / Bekleme Salonu seçilerek verilir</span></label>
+              <label>Yetkiler</label>
+              <div id="roleCaps"></div>
+              <div class="row" style="margin-top:14px"><button class="btn" id="roleSave">Kaydet</button><button class="btn red" id="roleDelete">Sil</button></div>
+              <div id="roleFormMsg" class="note hide"></div>
+            </div>
+          </div>
+          <div class="card hide" id="roleMembersCard">
+            <h3 id="roleMembersTitle">Üyeler</h3>
+            <label for="roleUserQ">Üye ekle</label>
+            <div class="row"><div style="flex:1"><input id="roleUserQ" placeholder="@kullanıcıadı ya da uid"></div><button class="btn ghost" id="roleUserFind">Ara</button></div>
+            <div id="roleUserResults"></div>
+            <div id="roleScopeBox" class="hide">
+              <label>Kapsam <span class="muted small">(hiçbirini seçmezsen her yerde geçerli)</span></label>
+              <div class="chips" id="roleScopePicks"></div>
+            </div>
+            <label for="roleReason">Gerekçe (zorunlu, en az 10 karakter)</label>
+            <textarea id="roleReason" rows="2" maxlength="300" placeholder="Neden? Örn. Etkinlik ekibine katıldı, girişleri yönetecek."></textarea>
+            <p class="muted small">Rol verme ve kaldırma; yapan, tarih ve gerekçeyle Rol geçmişi'ne yazılır.</p>
+            <div id="roleMembers" style="margin-top:12px"></div>
+            <div id="roleMembersMsg" class="note hide"></div>
+          </div>
+          <div class="card" id="roleAuditCard">
+            <h3>Rol geçmişi</h3>
+            <div class="row"><div style="flex:1"><input id="roleAuditUid" placeholder="Üye uid (boş: tümü)"></div><button class="btn ghost" id="roleAuditLoad">Göster</button></div>
+            <div id="roleAudit" style="margin-top:10px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ödemeler (yalnızca ana kurucu): HP satın alma kanalları, TL→HP, anahtarlar. payments.js -->
+    <div data-p="payments" class="hide">
+      <div class="note err"><b>⚖️ Google Play politikası:</b> Play'den dağıtılan uygulamada HP (dijital ürün) yalnızca Google Play Faturalandırma ile satılabilir; Türkiye alternatif/kullanıcı seçimli faturalandırma programlarında değil. Kart, BKM Express, GSM ve cüzdanlar bu yüzden varsayılan olarak <b>yalnızca web'de</b> (hadietkinlikkulubu.com/hp) gösterilir. Uygulama içi gösterim ve "web'de daha ucuz/diğer yöntemler" yönlendirmesi (anti-steering) ihlal sayılabilir; açmadan önce hukuki/politika incelemesi yapın. App Store için de Apple kuralları (3.1.1) aynıdır.</div>
+      <div class="card">
+        <div class="row">
+          <div style="flex:1;min-width:240px"><label for="pyWebUrl">Web ödeme sayfası</label><input id="pyWebUrl" placeholder="https://hadietkinlikkulubu.com/hp/"></div>
+          <div style="width:170px"><label for="pyHpValue">1 HP = kaç TL (net)</label><input id="pyHpValue" type="number" min="0.0001" step="0.01"></div>
+          <label style="display:flex;gap:10px;align-items:center;margin-bottom:10px"><input type="checkbox" id="pyWebLink" style="width:auto"> Uygulamada "Diğer ödeme yöntemleri: web" notunu göster</label>
+        </div>
+        <details style="margin-top:8px"><summary class="muted small" style="cursor:pointer">Gelişmiş: dönüş adresleri ve fatura bilgisi</summary>
+          <div class="row">
+            <div style="flex:1;min-width:240px"><label for="pyCallback">Sağlayıcı dönüş adresi (boş = varsayılan Cloud Functions adresi)</label><input id="pyCallback"></div>
+            <div style="flex:1;min-width:240px"><label for="pyResult">Sonuç sayfaları kökü</label><input id="pyResult" placeholder="https://hadietkinlikkulubu.com/hp/"></div>
+          </div>
+          <div class="row">
+            <div style="width:160px"><label for="pyCity">Fatura şehri</label><input id="pyCity"></div>
+            <div style="flex:1;min-width:220px"><label for="pyAddr">Fatura adresi (iyzico zorunlu)</label><input id="pyAddr"></div>
+            <div style="width:110px"><label for="pyZip">Posta kodu</label><input id="pyZip"></div>
+            <div style="width:170px"><label for="pyIdent">TCKN yer tutucu</label><input id="pyIdent" maxlength="11"></div>
+          </div>
+        </details>
+        <p class="muted small" id="pyUrls"></p>
+      </div>
+      <div class="card">
+        <h3>Net hesaplayıcı</h3>
+        <p class="muted small">Brüt fiyattan KDV, komisyon ve sabit ücret düşülür; kalan net TL ÷ (1 HP net TL) = önerilen HP. Kanal kartındaki "Öner" düğmesi o kanalın oranlarını kullanır.</p>
+        <div class="row">
+          <div style="width:120px"><label for="pcGross">Brüt TL</label><input id="pcGross" type="number" value="100" min="0" step="1"></div>
+          <div style="width:120px"><label for="pcTax">KDV %</label><input id="pcTax" type="number" value="20" min="0" step="0.1"></div>
+          <div style="width:140px"><label for="pcComm">Komisyon %</label><input id="pcComm" type="number" value="15" min="0" step="0.1"></div>
+          <div style="width:140px"><label for="pcFee">Sabit ücret TL</label><input id="pcFee" type="number" value="0" min="0" step="0.01"></div>
+          <div style="flex:1;min-width:200px"><b id="pcOut"></b></div>
+        </div>
+      </div>
+      <div id="pyChannels"></div>
+      <div id="pyBar" style="position:sticky;bottom:0;display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 14px;margin-top:12px;box-shadow:0 -6px 24px #17344f1f;z-index:4">
+        <span style="flex:1;font-weight:700" id="pyDirty">Değişiklik yok</span>
+        <button class="btn ghost" id="pyReload">Yenile</button>
+        <button class="btn" id="pySave">Kaydet</button>
+      </div>
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><h3>Son siparişler</h3>
+          <div class="row"><select id="pyOrdStatus" style="width:160px"><option value="">Tümü</option><option value="paid">Ödendi</option><option value="pending">Bekliyor</option><option value="review">İncelemede</option><option value="failed">Başarısız</option></select><button class="btn ghost" id="pyOrdLoad">Getir</button></div></div>
+        <div id="pyOrders" class="muted small">—</div>
+      </div>
+    </div>
+    <!-- Benim Radyom (radio.js → radio callable, config/radio) -->
+    <div data-p="radio" class="hide">
+      <div class="note"><b>⚖️ Lisans:</b> Radyo yalnızca kulübün müzik kitaplığını (music_tracks) çalar. Kulüp bu parçalar için umuma iletim / kamuya açık icra haklarına sahip olmalıdır (Türkiye'de MESAM / MSG, bağlantılı haklar için MÜYAP vb.). Spotify, Apple Music ya da YouTube sesi yeniden yayınlanamaz.</div>
+      <div class="card">
+        <div class="row">
+          <label style="display:flex;gap:10px;align-items:center;margin-bottom:10px"><input type="checkbox" id="rdEnabled" style="width:auto"> Benim Radyom açık (kapalıyken yalnızca kurucu/yönetici dinleyebilir)</label>
+          <span style="flex:1"></span>
+          <button class="btn ghost" id="rdReload">Yenile</button>
+          <button class="btn ghost" id="rdAdd">İstasyon ekle</button>
+          <button class="btn" id="rdSave">Kaydet</button>
+        </div>
+        <p class="muted small">Herkes aynı anı duyar: konum = (şimdi − başlangıç) mod tur süresi. Çalma listesi ya da karıştırma değişen istasyon baştan başlar; yalnızca ad/emoji değişirse yayın kesilmez.</p>
+      </div>
+      <div id="rdStations"></div>
+      <div class="card"><h3>Süresi bilinmeyen parçalar</h3><p class="muted small">Radyo süreyle hesaplanır; süresi olmayan parça ölçülene kadar çalınmaz. "Ölç" düğmesi ses dosyasını tarayıcıda açıp süreyi kaydeder.</p><div id="rdMissing"></div></div>
+    </div>
+    <!-- HADİ Destek masası (support.js → supportDesk callable: list/thread/post/assign/setStatus/canned/cannedSet/draft/statusSet/gaps; support › adminLimitsGet/adminLimitsSet) -->
+    <!-- AI video şablonları (aiVideo: adminTemplates / templateUpsert / templateDelete / adminConfig / setConfig) -->
+    <div data-p="aivideo" class="hide">
+      <div class="card">
+        <h3>AI video şablonları</h3>
+        <p class="muted small"><b>Kural:</b> Şablon videolarında gerçek, tanınabilir bir kişi ya da ünlü bulunmamalı (lisanslı, kendi çektiğimiz ya da izinli içerik). Üyeler yalnızca kimlikle doğrulanmış kendi yüzlerini kullanabilir; çıktılar "AI ile üretildi" etiketiyle gösterilir. Fiyat: <b>Fiyatlar</b> sekmesinde "AI video".</p>
+        <div class="row">
+          <div style="flex:1;min-width:200px"><label>Ad</label><input id="avTitle" maxlength="60"></div>
+          <div style="width:110px"><label>Sıra</label><input id="avOrder" type="number" value="0"></div>
+          <div style="width:140px"><label>Süre (sn)</label><input id="avDur" type="number" value="0" min="0" max="60"></div>
+        </div>
+        <div class="row">
+          <div style="flex:1;min-width:200px"><label>Video (mp4, ≤60 sn)</label><input id="avVideo" type="file" accept="video/*"></div>
+          <div style="flex:1;min-width:200px"><label>Kapak görseli (isteğe bağlı)</label><input id="avThumb" type="file" accept="image/*"></div>
+        </div>
+        <label class="small"><input type="checkbox" id="avNoPeople"> Bu videoda gerçek, tanınabilir bir kişi ya da ünlü yok ve kullanım hakkımız var.</label><br>
+        <label class="small"><input type="checkbox" id="avEnabled"> Üyelere açık</label>
+        <input type="hidden" id="avId">
+        <div class="row" style="margin-top:8px"><button class="btn" id="avSave">Kaydet</button><button class="btn ghost" id="avNew">Yeni şablon</button></div>
+      </div>
+      <div class="card"><div id="avTable"><p class="muted">—</p></div></div>
+      <div class="card">
+        <h3>Veo ile şablon üret (hayali kişi)</h3>
+        <p class="muted small">Vertex AI Veo · 8 sn, 9:16, 720p, sessiz · tahmini ≈ 0,64 $/şablon. Sunucu her isteme "hayali yetişkin, ünlüye benzemeyen, yazı/logo yok, yüz açık" kurallarını ekler. Üretilen şablon <b>kapalı</b> gelir; izleyip uygunsa açarsın.</p>
+        <div class="row" id="avVeoChips"></div>
+        <div class="row"><div style="flex:1;min-width:200px"><label>Şablon adı</label><input id="avVeoTitle" maxlength="60"></div></div>
+        <label>İstem (İngilizce önerilir)</label><textarea id="avVeoPrompt" rows="4" maxlength="1500" style="width:100%"></textarea>
+        <button class="btn" id="avVeoGo">Üret</button>
+      </div>
+      <div class="card">
+        <h3>Sağlayıcı ayarları</h3>
+        <p class="muted small" id="avToken"></p>
+        <label class="small"><input type="checkbox" id="avCfgEnabled"> AI video açık</label>
+        <div class="row">
+          <div style="width:200px"><label>Sağlayıcı</label><select id="avProvider"><option value="fal">fal.ai (önerilen)</option><option value="replicate">Replicate</option></select></div>
+          <div style="flex:1;min-width:220px"><label>fal.ai modeli</label><input id="avFalModel" placeholder="fal-ai/pixverse/swap"></div>
+        </div>
+        <div class="row">
+          <div style="flex:1;min-width:220px"><label>Replicate modeli (sahip/ad; inswapper/roop ticari kullanıma kapalı)</label><input id="avModel"></div>
+          <div style="flex:1;min-width:220px"><label>Sürüm kimliği (isteğe bağlı)</label><input id="avVersion"></div>
+        </div>
+        <div class="row">
+          <div style="width:180px"><label>Yüz girdisi adı</label><input id="avImageKey"></div>
+          <div style="width:180px"><label>Video girdisi adı</label><input id="avVideoKey"></div>
+          <div style="width:160px"><label>Üye başına günlük</label><input id="avMax" type="number" min="1" max="100"></div>
+          <div style="width:160px"><label>Zaman aşımı (dk)</label><input id="avTimeout" type="number" min="5" max="120"></div>
+        </div>
+        <button class="btn" id="avCfgSave">Ayarları kaydet</button>
+      </div>
+    </div>
+
+    <div data-p="support" class="hide">
+      <div class="card">
+        <div class="row">
+          <h3 style="margin:0">Destek masası</h3>
+          <span style="flex:1"></span>
+          <span class="row" id="spTabs" style="gap:6px">
+            <button class="btn ghost on" data-sp="queue">Kuyruk</button>
+            <button class="btn ghost" data-sp="canned">Hazır cevaplar</button>
+            <button class="btn ghost" data-sp="banner">Durum bandı</button>
+            <button class="btn ghost" data-sp="gaps">Boşluklar</button>
+            <button class="btn ghost" data-sp="limits">Sınırlar</button>
+          </span>
+        </div>
+        <p class="muted small">HADİ Destek 2.0: botun yükselttiği talepler, "Sorun bildir" (ekran görüntüsü) ve acil güvenlik bildirimleri. Kişisel veriler maskelenir. Yazdığın yanıt üyenin "Taleplerim" yazışmasına düşer ve bildirim gider. AI taslak yalnızca öneridir; okuyup düzenleyerek gönder.</p>
+      </div>
+      <div data-spp="queue">
+        <div class="card">
+          <div class="row">
+            <select id="spStatus" style="width:130px"><option value="active">Açık</option><option value="resolved">Çözülen</option><option value="all">Tümü</option></select>
+            <select id="spAssigned" style="width:150px"><option value="">Herkes</option><option value="me">Bana atanan</option><option value="none">Atanmamış</option></select>
+            <input id="spQ" placeholder="Kod, özet ya da üye adı" style="flex:1;min-width:160px">
+            <button class="btn ghost" id="spReload">Yenile</button>
+          </div>
+        </div>
+        <div id="spList"><p class="muted">—</p></div>
+        <div id="spThread" class="hide"></div>
+      </div>
+      <div data-spp="canned" class="hide">
+        <div class="card">
+          <h3>Hazır cevaplar</h3>
+          <p class="muted small"><code>{ad}</code> üyenin adıyla değişir. Uygulamadaki talep ekranında ⚡ ile eklenir.</p>
+          <div id="spCanned"></div>
+          <div class="row"><button class="btn ghost" id="spCannedAdd">Yeni ekle</button><button class="btn" id="spCannedSave">Kaydet</button></div>
+        </div>
+      </div>
+      <div data-spp="banner" class="hide">
+        <div class="card">
+          <h3>Durum bandı</h3>
+          <p class="muted small">Bilinen bir sorun varsa (ör. ödeme gecikmesi) üyeler destek ekranının ve yardım merkezinin üstünde görür. Kurucu ve yöneticiler değiştirir.</p>
+          <label>Metin</label><textarea id="spBanText" rows="2" maxlength="300" style="width:100%"></textarea>
+          <div class="row">
+            <div style="width:160px"><label>Seviye</label><select id="spBanLevel"><option value="info">Bilgi</option><option value="warn">Uyarı</option><option value="critical">Kritik</option></select></div>
+            <div style="width:160px"><label>Süre</label><select id="spBanHours"><option value="">Süresiz</option><option value="1">1 saat</option><option value="4">4 saat</option><option value="24">1 gün</option><option value="72">3 gün</option></select></div>
+          </div>
+          <div class="row" style="margin-top:8px"><button class="btn" id="spBanSave">Yayınla</button><button class="btn ghost" id="spBanClear">Kaldır</button></div>
+        </div>
+      </div>
+      <div data-spp="gaps" class="hide"><div id="spGaps"><p class="muted">—</p></div></div>
+      <div data-spp="limits" class="hide">
+        <div class="card">
+          <h3>Günlük destek mesajı sınırları</h3>
+          <p class="muted small">Bir üyenin HADİ Destek botuna günde gönderebileceği mesaj sayısı. Premium üyelerin sınırı daha yüksektir. Yalnızca ana kurucu değiştirebilir; gerekçe zorunludur ve kayda geçer.</p>
+          <div class="row">
+            <div style="width:180px"><label>Temel üye (mesaj/gün)</label><input id="spLimDaily" type="number" min="5" max="5000"></div>
+            <div style="width:180px"><label>Premium üye (mesaj/gün)</label><input id="spLimPremium" type="number" min="5" max="5000"></div>
+          </div>
+          <label>Gerekçe (zorunlu)</label><input id="spLimReason" maxlength="200" style="width:100%">
+          <div class="row" style="margin-top:8px"><button class="btn" id="spLimSave">Kaydet</button></div>
+        </div>
+      </div>
+    </div>
+    <!-- Kimlik doğrulama incelemesi (identity.js → identity callable: list / approve / reject; functions/src/identity.ts) -->
+    <div data-p="idrev" class="hide">
+      <div class="card">
+        <div class="row">
+          <h3 style="margin:0">Kimlik doğrulamaları</h3>
+          <span style="flex:1"></span>
+          <select id="irStatus" style="width:150px"><option value="pending">Bekleyen</option><option value="approved">Onaylanan</option><option value="rejected">Reddedilen</option></select>
+          <button class="btn ghost" id="irReload">Yenile</button>
+        </div>
+        <p class="muted small">Üyenin telefonu kimlik kartındaki NFC çipini okur (devletin dijital imzası sunucuda doğrulanır), canlılık kontrolü yapar ve selfie'yi çip fotoğrafıyla telefonda eşleştirir; yüz verisi sunucuya gelmez. Otomatik kontroller bilgi içindir, kararı sen verirsin: kimlik elde fotoğrafındaki yüz, kart ve profil aynı kişi mi? Onayda ad soyad kilitlenir; karar sonrası fotoğraf silinir. Kurucular ve <code>identity.review</code> yetkisi olanlar görür.</p>
+      </div>
+      <div id="irList"><p class="muted">—</p></div>
+    </div>
+    <!-- HP Bankası adres belgeleri (reviews.js → addressVerification callable: list / approve / reject; functions/src/address_verification.ts) -->
+    <div data-p="addrrev" class="hide">
+      <div class="card">
+        <div class="row">
+          <h3 style="margin:0">Adres belgeleri</h3>
+          <span style="flex:1"></span>
+          <button class="btn ghost" id="arReload">Yenile</button>
+        </div>
+        <p class="muted small">HP Bankası için yüklenen e-Devlet "Yerleşim Yeri Belgesi"leri. e-Devlet'in resmi doğrulama API'si yok: belgeyi aç, barkod numarasını <a href="https://www.turkiye.gov.tr/belge-dogrulama" target="_blank" rel="noopener">e-Devlet belge doğrulama</a> sayfasında kontrol et, adın üyeyle aynı olduğuna bak. Onayda yalnızca il/ilçe saklanır; karar sonrası belge silinir. Kurucular ve <code>address.review</code> yetkisi olanlar görür.</p>
+      </div>
+      <div id="arList"><p class="muted">—</p></div>
+    </div>
+    <!-- Kahve Eşleşmesi güvenlik incelemesi (reviews.js → kahve callable: safetyList / safetyDecide; functions/src/kahve_profile.ts) -->
+    <div data-p="kahvesafe" class="hide">
+      <div class="card">
+        <div class="row">
+          <h3 style="margin:0">Kahve güvenlik incelemesi</h3>
+          <span style="flex:1"></span>
+          <button class="btn ghost" id="ksReload">Yenile</button>
+        </div>
+        <p class="muted small">Yapay zekâ, Kahve Eşleşmesi'ne açık rıza veren üyenin kendi yazdıklarında (kendi DM'leri dahil) risk gördüyse üyeyi yalnızca Kahve Eşleşmesi'nden geçici olarak çıkarır. Karar sizindir: "Eşleşmeye geri al" ya da "Dışarıda tut" (yalnızca Kahve'yi etkiler). Alıntılar karar verilince silinir. Kurucular ve <code>kahve.safety</code> yetkisi olanlar görür.</p>
+      </div>
+      <div id="ksList"><p class="muted">—</p></div>
+    </div>
+    <!-- İşletmeci hesabı (business.js → business callable; functions/src/business.ts) -->
+    <div data-p="business" class="hide">
+      <div class="card">
+        <div class="row">
+          <h3 style="margin:0">İşletmeler</h3>
+          <span style="flex:1"></span>
+          <button class="btn ghost" id="bzReload">Yenile</button>
+        </div>
+        <p class="muted small">İşletmeci hesabı başvuruları (yasal belgeler 15 dk'lık bağlantıyla açılır), onay bekleyen işletme etkinlikleri ve fatura karşılığı ödeme talepleri. Kurucular ve <code>business.review</code> yetkisi olanlar görür. Komisyon ve HP→TL ödeme kurunu yalnızca ana kurucu değiştirebilir.</p>
+      </div>
+      <div class="card" id="bzSettings">
+        <h4 style="margin-top:0">Ayarlar</h4>
+        <div class="row" style="gap:12px">
+          <div style="width:200px"><label>Komisyon (%)</label><input id="bzPct" type="number" min="0" max="50" step="0.5"></div>
+          <div style="width:200px"><label>1 HP = ? TL (HP kuru: fiyat listeleri, rezervasyon/sipariş, ödemeler)</label><input id="bzRate" type="number" min="0" step="0.0001"></div>
+          <div style="align-self:flex-end"><button class="btn" id="bzSave">Kaydet</button></div>
+        </div>
+        <div class="row" style="gap:12px;margin-top:8px">
+          <div style="width:280px"><label>İşletmeye özel komisyon: uid</label><input id="bzOvUid"></div>
+          <div style="width:140px"><label>Oran (%)</label><input id="bzOvPct" type="number" min="0" max="50" step="0.5"></div>
+          <div style="align-self:flex-end"><button class="btn ghost" id="bzOvSave">Kaydet</button> <button class="btn ghost" id="bzOvDel">Kaldır</button></div>
+        </div>
+        <p class="muted small" id="bzCfgNote"></p>
+      </div>
+      <h4>Başvurular</h4>
+      <div id="bzApps"><p class="muted">—</p></div>
+      <h4>Onay bekleyen etkinlikler</h4>
+      <div id="bzEvents"><p class="muted">—</p></div>
+      <h4>Ödeme talepleri</h4>
+      <div id="bzPayouts"><p class="muted">—</p></div>
+      <h4>Sipariş anlaşmazlıkları</h4>
+      <div class="card">
+        <p class="muted small">Ödeme teslim onaylanana kadar blokede kalır. İşletme "teslim edildi" dedikten sonra üye <b>teslim onay süresi</b> içinde yanıt vermezse teslim alındı sayılır ve HP işletmeye geçer. Üye "teslim almadım / sorun var" derse ödeme donar ve burada karar verilir.</p>
+        <div class="row" style="gap:12px">
+          <div style="width:200px"><label>Teslim onay süresi (dk)</label><input id="bzConfirmMin" type="number" min="1" max="1440" step="1"></div><div style="width:220px"><label>Teslim edilmeyende soru (saat sonra)</label><input id="bzAskH" type="number" min="1" max="720" step="1"></div><div style="width:200px"><label>Üyenin yanıt süresi (saat)</label><input id="bzAnsH" type="number" min="1" max="168" step="1"></div>
+          <div style="align-self:flex-end"><button class="btn" id="bzConfirmSave">Kaydet</button></div>
+        </div>
+      </div>
+      <div id="bzDisputes"><p class="muted">—</p></div>
+      <h4>Ödeme kaydet (fatura)</h4>
+      <div class="card">
+        <p class="muted small">HADİ'nin işletmeye yaptığı havaleyi fatura bilgisiyle kaydet. İşletmenin HP bakiyesinden fatura tutarının HP karşılığı ve anlaşılan komisyon düşülür.</p>
+        <div class="row" style="gap:8px;flex-wrap:wrap">
+          <input id="bzRecUid" placeholder="İşletme uid" style="width:220px">
+          <input id="bzRecTl" type="number" min="0" step="0.01" placeholder="Fatura tutarı (TL)" style="width:160px">
+          <input id="bzRecNo" placeholder="Fatura no" style="width:140px">
+          <input id="bzRecDate" type="date" style="width:160px">
+          <input id="bzRecRef" placeholder="Havale/EFT referansı" style="width:200px">
+          <button class="btn" id="bzRecSave">Kaydet</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
+<div id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-functions-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="config.js"></script>
+<!-- Callable grup eşlemesi (üretildi: hadimobile/tools/gen_callable_map.js) — panel betiklerinden ÖNCE yüklenir. -->
+<script src="callables.js"></script>
+<script src="panel.js"></script>
+<script src="payments.js"></script>
+<script src="radio.js"></script>
+<script src="support.js"></script>
+<script src="reviews.js"></script>
+<script src="business.js"></script>
+<script src="identity.js"></script>
+</body>
+</html>

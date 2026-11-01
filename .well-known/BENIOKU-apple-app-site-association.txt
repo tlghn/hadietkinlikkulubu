@@ -1,0 +1,24 @@
+apple-app-site-association — iPhone Universal Links doğrulaması (HADİ)
+=====================================================================
+
+Android'deki assetlinks.json'un iPhone karşılığıdır: https://hadietkinlikkulubu.com/p/..., /yazi/..., /etkinlik/...,
+/@kullanici, /anket/..., /grup/..., /kanal/..., /uygulama, /ai/..., /davet/..., /sonuc/..., /d/... bağlantılarına
+iPhone'da dokunulunca Safari yerine doğrudan HADİ uygulaması açılır.
+
+DOLDURULMASI GEREKEN: "APPLE_TEAM_ID" (tek yer). Apple Developer › Account › Membership details › Team ID
+(10 karakter, ör. ABCDE12345; gizli değildir). Mobil projede tek komut ikisini birden doldurur:
+    python tools/ios_patches/set_team_id.py ABCDE12345 ../hadi
+
+Kurallar (Apple):
+- Dosya UZANTISIZ ve tam bu yolda olmalı: /.well-known/apple-app-site-association
+- Yönlendirme (redirect) OLMADAN, HTTPS ile, 200 yanıtıyla sunulmalı; içerik türü application/json (_headers ayarlı).
+- Apple dosyayı kendi CDN'inden önbelleğe alır: değişiklik birkaç saat - 1 gün içinde telefonlara yansır.
+- Uygulama tarafı: ios/Runner/Runner.entitlements › applinks:hadietkinlikkulubu.com (hazır).
+
+Kontrol:
+    curl -sI https://hadietkinlikkulubu.com/.well-known/apple-app-site-association   (200, application/json)
+    https://app-site-association.cdn-apple.com/a/v1/hadietkinlikkulubu.com          (Apple CDN'deki kopya)
+Telefonda: Notlar'a bir paylaşım bağlantısı yapıştırıp dokunun → HADİ açılmalı (uzun basınca "HADİ'de Aç").
+
+Not: Aynı alan adındaki bir sayfadan (ör. paylaşım sayfasındaki "Uygulamada aç" düğmesi) dokunulan bağlantı iOS'ta
+Universal Link olarak AÇILMAZ (Apple kuralı). Bu yüzden paylaşım sayfası iPhone'da "hadi://" şemasını kullanır.

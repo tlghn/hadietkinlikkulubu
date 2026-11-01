@@ -1,0 +1,23 @@
+assetlinks.json — Android App Links doğrulaması (HADİ)
+=====================================================
+
+Bu dosya, https://hadietkinlikkulubu.com/p/..., /yazi/..., /etkinlik/..., /@kullanici, /anket/...,
+/grup/..., /kanal/... bağlantılarının tarayıcı yerine doğrudan HADİ uygulamasında açılmasını sağlar.
+
+DOLDURULMASI GEREKEN: assetlinks.json içindeki "DOLDURULACAK:..." satırı.
+
+1. Play Console › HADİ › Test ve yayınlama › Uygulama bütünlüğü (App integrity)
+   › Uygulama imzalama (App signing) sekmesi.
+2. "Uygulama imzalama anahtarı sertifikası" (App signing key certificate) altındaki
+   SHA-256 sertifika parmak izini kopyala (ör. 14:6D:E9:83:...:5D, 32 çift, iki nokta üst üste ile).
+   Aynı sayfada hazır "Digital Asset Links JSON" kutusu da vardır; oradaki değer aynıdır.
+3. "DOLDURULACAK:..." metninin yerine bu değeri yaz (tırnaklar kalsın).
+4. Play'e yüklemeden önce kendi bilgisayarında imzaladığın sürümleri (sideload / debug) de
+   denemek istersen, "Yükleme anahtarı sertifikası" (Upload key) SHA-256 değerini ikinci satır
+   olarak ekleyebilirsin:  "AA:BB:...", "CC:DD:..."
+5. Siteyi yayınla, sonra kontrol et:
+   https://digitalassetlinks.googleapis.com/v1/statements:list?source.web.site=https://hadietkinlikkulubu.com&relation=delegate_permission/common.handle_all_urls
+   Telefonda: Ayarlar › Uygulamalar › HADİ › Varsayılan olarak aç › hadietkinlikkulubu.com "doğrulandı".
+
+Değer doldurulmazsa site ve paylaşım sayfaları yine çalışır; yalnızca bağlantılar otomatik
+olarak uygulamada açılmaz ("Uygulamada aç" düğmesi Android'de yine uygulamayı açar).

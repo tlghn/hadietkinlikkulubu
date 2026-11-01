@@ -1,0 +1,60 @@
+# HADİ Etkinlik Kulübü — Cloudflare Pages başlık ayarları
+# Bu dosya sitenin kök klasöründe durmalı. Ziyaretçiye gönderilmez; Cloudflare okur.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://firebasestorage.googleapis.com https://*.google-analytics.com https://*.googletagmanager.com; connect-src 'self' https://api.hadisosyal.com https://docs.google.com https://geocoding-api.open-meteo.com https://api.open-meteo.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://cloudflareinsights.com; frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://docs.google.com
+
+# Görseller nadiren değişir: 7 gün önbellek
+/assets/img/*
+  Cache-Control: public, max-age=604800
+
+# Stil ve kod dosyaları: kısa önbellek, güncelleme sonrası hızla yenilenir
+/assets/css/*
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/assets/js/*
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+
+# Form bağlantıları değiştiğinde hemen geçerli olsun
+/assets/js/forms-config.js
+  ! Cache-Control
+  Cache-Control: no-cache
+
+# HADİ Para yükleme (/hp/): Firebase giriş (telefon + reCAPTCHA) ve Cloud Functions çağrıları için
+# genel CSP yerine bu sayfaya özel CSP. Ödeme sağlayıcısına tam sayfa yönlendirme yapılır (çerçeve yok).
+/hp/*
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.gstatic.com https://www.google.com https://apis.google.com https://www.recaptcha.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.gstatic.com https://www.google.com; connect-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.run.app https://www.google.com; frame-src https://www.google.com https://www.recaptcha.net https://*.firebaseapp.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'self'
+  Cache-Control: no-cache
+
+# Yönetim paneli (/panel/): Firebase (giriş, Firestore, Functions, Storage) ve Chart.js için panele özel CSP.
+/panel/*
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.gstatic.com https://www.google.com https://apis.google.com https://www.recaptcha.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https: ; connect-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.run.app https://www.google.com https://firebasestorage.googleapis.com wss://*.firebaseio.com; frame-src https://www.google.com https://www.recaptcha.net https://*.firebaseapp.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'self'
+  X-Robots-Tag: noindex
+  Cache-Control: no-cache
+
+# Kurulum rehberi ziyaretçilere açık olmasın diye arama motorlarından gizlenir
+/GOOGLE-FORMS-KURULUM.md
+  X-Robots-Tag: noindex
+
+# Android App Links doğrulaması (assetlinks.json): JSON olarak, kısa önbellekle sunulur.
+# Paylaşım sayfaları (/p/*, /yazi/*, /etkinlik/*, /@*, /anket/*, /grup/*, /kanal/*, /uygulama) Pages Function'dır
+# (functions/[[path]].js); bu dosyadaki başlıklar onlara uygulanmaz, CSP vb. Function içinde eklenir.
+/.well-known/assetlinks.json
+  Content-Type: application/json
+  Cache-Control: public, max-age=3600
+  Access-Control-Allow-Origin: *
+/.well-known/BENIOKU-assetlinks.txt
+  X-Robots-Tag: noindex
+
+# iPhone Universal Links (apple-app-site-association; uzantısız dosya): JSON olarak, yönlendirmesiz, kısa önbellekle.
+/.well-known/apple-app-site-association
+  Content-Type: application/json
+  Cache-Control: public, max-age=3600
+/.well-known/BENIOKU-apple-app-site-association.txt
+  X-Robots-Tag: noindex
