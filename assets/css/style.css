@@ -1391,7 +1391,8 @@ tr:last-child td { border-bottom: 0; }
 .hs-emo { font-size: 2rem; line-height: 1; }
 .hs-nav { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.75rem; }
 .hs-nav .chip { text-decoration: none; color: inherit; }
-.hs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items: start; }
+.hs-grid { columns: 3 320px; column-gap: 1.25rem; }
+.hs-grid > .hs-cat { break-inside: avoid; margin-bottom: 1.25rem; display: block; }
 .hs-cat { background: #fff; border-radius: var(--r-lg); padding: clamp(1.25rem, 3vw, 1.75rem); border-left: 5px solid var(--c); scroll-margin-top: 110px; }
 .hs-cat h3 { font-size: 1.35rem; margin-bottom: .2rem; }
 .hs-sub { color: var(--ink-2); margin: 0 0 1rem; font-size: .95rem; }
