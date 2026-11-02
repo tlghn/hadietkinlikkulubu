@@ -8,7 +8,7 @@ import io, os, re, glob
 R = r'D:\hadietkinlikkulubu'
 APP = 'https://hadisosyal.com/'
 IMG = 'assets/img/app/'
-VER = '20261102k'
+VER = '20261102m'
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
 # Vitrin: büyük, fotoğraflı anlatım (sırayla sol/sağ)
@@ -47,10 +47,10 @@ F = [
  ('📸','Ortak etkinlik albümü','Fotoğraf ve videolar katılımcılara özel albümde toplanır.','cover_etk_gezi'),
  ('🗂️','Sekmeli etkinlik sayfası','Özet, Menü, Yolculuk, Sosyal, Şeffaflık ve Kurallar sekmeleriyle aradığın her şey bir dokunuş uzağında.'),
  ('🍽️','Etkinlik menüsü','Fix, set ya da alakart menüyü önceden gör; bilete dahil olanlar ve ayrıca ödenenler açıkça yazar.'),
- ('🚗','Paylaşımlı yolculuk','Aracını paylaş: rota, yakıt masrafı ve güzergah üzerindeki buluşma noktaları kendiliğinden hesaplanır.'),
+ ('🚗','Paylaşımlı yolculuk','Aracını paylaş: rota ve buluşma noktaları kendiliğinden çıkar; yakıt türü, tüketim ve fiyatı sen ayarlarsın, hesap açıkça görünür.'),
  ('🙋','Yolculuk talebi','Henüz araç yoksa “Paylaşımlı yolculuk istiyorum” de; araç açılınca haber gelir.'),
  ('🚙','Araçlarım','Ruhsatını okut, aracın bir kez eklensin; okunan bilgiler değiştirilemez, şifreli saklanır, her yolculuğun raporu tutulur.'),
- ('🪪','Doğrulanmış sürücüler','Kimlik doğrulamalı etkinliklerde sürücünün kimliği ve kendisine ait geçerli ehliyeti doğrulanır.'),
+ ('🪪','Doğrulanmış sürücüler','Araç paylaşan herkesin ehliyeti doğrulanır ve her yolculukta geçerliliği kontrol edilir; kimlik doğrulamalı etkinliklerde ehliyet sahibinin kimliği de eşleşir.'),
  ('🎫','QR ile biniş','Yolcu biletini sürücüye okutur, biniş kesinleşir; masraf payı anında sürücüye geçer.'),
  ('🆘','Yolculukta güvenlik','Yolculuğa özel sohbet, sürücüyle sesli arama, gecikme bildirimi ve yönetime konumlu PANİK düğmesi.'),
  ('🧺','Getir listesi','Piknik ve kampta ne getireceğini üstlen, bir gün önce hatırlatma al.'),
@@ -165,11 +165,12 @@ F = [
  ('🧹','Otomatik silme','Mesajlar, arşiv ve destek kayıtları için otomatik silme kur.'),
  ('📦','Verilerini indir','Tüm verilerinin kopyasını al, rıza makbuzlarını gör.'),
  ('❄️','Hesabı dondur','Ara vermek istediğinde hesabını dondur, hazır olunca dön.'),
- ('💎','Elmas','Uygulama içi para birimi; hizmetleri ve hediyeleri Elmas’la kullan.','hero_cuzdan'),
+ ('💎','Elmas','Uygulama içi para birimi; fiyatlara KDV dahildir. Biletler, yolculuk, canlı yayın ve işletme ödemeleri satın aldığın ve canlı yayında topladığın Elmas’la yapılır.','hero_cuzdan'),
+ ('🏦','Havale ile Elmas','HADİ Web’de havale/EFT ile paket ya da “Diğer” seçip istediğin miktarda Elmas al.'),
  ('🪙','Akçe','Görevler, oyunlar ve ödüllerle kazanılır; Akçe kabul eden hizmetlerde harcanır.'),
  ('🔄','Akçe Market','Elmas ile Akçe’yi diğer üyelerle takas et.'),
  ('🧾','Şeffaf hareketler','Bütün harcamalarını gör; kullanılmamış Elmas için iade iste.'),
- ('👑','HADİ Premium','İndirimler, profil stili, altın çerçeveli gönderiler ve etkinlik oluşturma.'),
+ ('👑','HADİ Premium','İndirimler, profil stili, altın çerçeveli gönderiler ve etkinlik oluşturma; fiyatlara KDV dahildir.'),
  ('✔️','Doğrulanmış hesap','Mavi tik al, story’ni 48 saate uzat.'),
  ('🎀','Hediyeler','Klasik ve 3B hediyeler; bayramlarda sınırlı sayıda sezonluk hediyeler.'),
  ('❤️','Bağış','Onaylı vakıf ve derneklere bağış yap.'),
