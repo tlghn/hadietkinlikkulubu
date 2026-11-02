@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20261102b">
+<link rel="stylesheet" href="assets/css/style.css?v=20261102e">
 </head>
 <body>
 <a class="skip" href="#icerik">İçeriğe geç</a>
@@ -51,11 +51,24 @@
   </div>
 </section>
 
-<section class="section" style="padding-top:1rem">
+<section class="hg-sec">
+  <div class="hg" id="api-gallery" role="region" aria-roledescription="carousel" aria-label="Anı galerisi" tabindex="0">
+    <div class="hg-stage"><p class="hg-wait">Kareler yükleniyor…</p></div>
+    <div class="hg-ui" hidden>
+      <div class="hg-cap"><span class="hg-ev"></span><span class="hg-date"></span></div>
+      <div class="hg-ctrl">
+        <button class="hg-btn hg-prev" type="button" aria-label="Önceki kare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="hg-idx" aria-live="polite"></span>
+        <button class="hg-btn hg-play" type="button" aria-label="Duraklat"><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><svg class="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+        <button class="hg-btn hg-next" type="button" aria-label="Sonraki kare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+      <div class="hg-bar"><span></span></div>
+    </div>
+  </div>
+  <div class="hg-strips" aria-hidden="true"><div class="hg-strip"></div><div class="hg-strip hg-strip--rev"></div></div>
   <div class="wrap">
-    <div class="gallery" id="api-gallery" aria-live="polite"><p class="muted">Kareler yükleniyor…</p></div>
     <div class="g-note">
-      <p>Fotoğraflar yalnızca karede yer alanların açık rızasıyla paylaşılır. Bir fotoğrafın kaldırılmasını istersen <a href="iletisim.html">bize yaz</a>.</p>
+      <p>Gizliliğin için fotoğraflardaki yüzler tanınmayacak şekilde bulanıklaştırılır. Kaldırılmasını istediğin bir fotoğraf varsa <a href="iletisim.html">bize yaz</a>.</p>
       <a class="btn" href="https://www.instagram.com/hadietkinlikkulubu/" target="_blank" rel="noopener">Instagram’da takip et: @hadietkinlikkulubu</a>
     </div>
   </div>
@@ -141,7 +154,7 @@
   </div>
 </div>
 <script src="assets/js/forms-config.js"></script>
-<script src="assets/js/main.js?v=20261102b"></script>
-<script src="assets/js/elmas.js?v=20261102b"></script>
+<script src="assets/js/main.js?v=20261102e"></script>
+<script src="assets/js/elmas.js?v=20261102e"></script>
 </body>
 </html>
