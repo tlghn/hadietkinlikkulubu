@@ -8,7 +8,7 @@ import io, os, re, glob
 R = r'D:\hadietkinlikkulubu'
 APP = 'https://hadisosyal.com/'
 IMG = 'assets/img/app/'
-VER = '20261102p'
+VER = '20261102r'
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
 # Vitrin: büyük, fotoğraflı anlatım (sırayla sol/sağ)
@@ -53,7 +53,9 @@ F = [
  ('🪪','Doğrulanmış sürücüler','Araç paylaşan herkesin ehliyeti doğrulanır ve her yolculukta geçerliliği kontrol edilir; kimlik doğrulamalı etkinliklerde ehliyet sahibinin kimliği de eşleşir.'),
  ('🎫','QR ile biniş','Yolcu biletini sürücüye okutur, biniş kesinleşir; masraf payı anında sürücüye geçer.'),
  ('🆘','Yolculukta güvenlik','Yolculuğa özel oda (yalnızca şoför ve onaylı yolcular), şoförle birebir sesli arama, gecikme bildirimi ve yönetime konumlu PANİK düğmesi.'),
- ('✅','Şoför onaylı rezervasyon','Yer ayırttığında talebin şoföre gider; onaylayınca kesinleşir, onaylanmazsa ücretin tamamen iade edilir. Engellediğin kişiler araçlarını göremez.'),
+ ('✅','Şoför onaylı rezervasyon','Talepler ilk gelen ilk sırasıyla şoföre gider, sıranı görürsün; onaylanınca kesinleşir, onaylanmazsa ücretin tamamen iade edilir. Engellediğin kişiler araçlarını göremez.'),
+ ('🧭','Adım adım araç paylaşımı','Araç, kalkış, rota, masraf, ücret ve koltuk tek tek sorulur; haritadan buluşma noktası eklersin, sonda tek ekranda özet ve onay.'),
+ ('⚖️','Adil ücret paylaşımı','Durağa göre, herkese aynı ya da binen kişi sayısına bölünmüş ücret; kimse yolculuğun toplam masrafından fazlasını ödemez, fark iade edilir.'),
  ('🧺','Getir listesi','Piknik ve kampta ne getireceğini üstlen, bir gün önce hatırlatma al.'),
  ('⏳','Bekleme listesi','Etkinlik doluysa sıraya gir; yer açılınca otomatik katılırsın.'),
  ('📅','Takvime ekle','Etkinliği telefonunun takvimine ekle, bir gün önce hatırlatma gelsin.'),
@@ -107,6 +109,7 @@ F = [
  ('↩️','Kaldığın yerden devam','Sohbet son okuduğun yerden açılır; aşağıda kaç mesaj beklediğini görürsün.'),
  ('🔐','Gizli sohbet','Uçtan uca şifreli birebir sohbet; içeriği HADİ sunucuları da göremez.','wiz_privacy'),
  ('📢','@hepsi duyurusu','Gruptaki herkese tek mesajla bildirim gönder.'),
+ ('⌨️','@ ile bahset, Tab ile tamamla','@ yazıp adın başını gir: tek eşleşmede Tab adı hemen yazar; çok kişide Tab ile listede ilerle, Enter ile seç, Esc ile kapat.'),
  ('🏕️','Topluluklar','Kamp, kitap, dalış… İlgi alanına göre topluluğa katıl ya da kendininkini kur.','cover_etk_doga'),
  ('🧩','Hazır şablonlu gruplar','Kitap Kulübü, Koşu, Gezi & Kamp, Mahalle şablonlarıyla hemen grup aç.'),
  ('📚','Kitap kulübü','Ayın kitabını oylayın, sesli kitabı birlikte dinleyin.','card_kitap'),
