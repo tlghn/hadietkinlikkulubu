@@ -8,14 +8,14 @@ import io, os, re, glob
 R = r'D:\hadietkinlikkulubu'
 APP = 'https://hadisosyal.com/'
 IMG = 'assets/img/app/'
-VER = '20261102i'
+VER = '20261102j'
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
 # Vitrin: büyük, fotoğraflı anlatım (sırayla sol/sağ)
 SPOT = [
   ('hero_etkinlikler', '--h', 'Etkinlikler', 'Şehrin en güzel planları tek dokunuşta',
    'Öne çıkanlar, sana özel öneriler ve harita görünümüyle etkinliği bul; QR biletinle kapıdan saniyeler içinde gir. Bilet aldığın an etkinliğin sohbetine katılır, anıları ortak albümde toplarsın.',
-   ['QR bilet', 'Etkinlik sohbeti', 'Ortak albüm', 'Paylaşımlı yolculuk']),
+   ['QR bilet', 'Sekmeli etkinlik sayfası', 'Etkinlik menüsü', 'Paylaşımlı yolculuk']),
   ('card_etk_simdi', '--a', 'Şimdi HADİ!', '“Kahveye çıkıyorum, kim gelir?”',
    'Plan yapmaya gerek yok. Çevrendeki üyelere birkaç saatlik anlık buluşma çağrısı aç; kahve, yürüyüş, maç… Gelenlerle hemen buluş.',
    ['Anlık buluşma', 'Kahve Eşleşmesi', 'Etkinlik Çarkı']),
@@ -45,7 +45,13 @@ F = [
  ('🎟️','QR bilet','Sana özel QR biletinle kapıda saniyeler içinde giriş yap.'),
  ('💬','Etkinlik sohbeti','Bilet aldığın an etkinliğin sohbetine katıl, yola çıkmadan tanış.'),
  ('📸','Ortak etkinlik albümü','Fotoğraf ve videolar katılımcılara özel albümde toplanır.','cover_etk_gezi'),
- ('🚗','Paylaşımlı yolculuk','Ulaşımı zor etkinliklere aracını paylaş ya da boş koltuğa yerini ayırt.'),
+ ('🗂️','Sekmeli etkinlik sayfası','Özet, Menü, Yolculuk, Sosyal, Şeffaflık ve Kurallar sekmeleriyle aradığın her şey bir dokunuş uzağında.'),
+ ('🍽️','Etkinlik menüsü','Fix, set ya da alakart menüyü önceden gör; bilete dahil olanlar ve ayrıca ödenenler açıkça yazar.'),
+ ('🚗','Paylaşımlı yolculuk','Aracını paylaş: rota, yakıt masrafı ve güzergah üzerindeki buluşma noktaları kendiliğinden hesaplanır.'),
+ ('🙋','Yolculuk talebi','Henüz araç yoksa “Paylaşımlı yolculuk istiyorum” de; araç açılınca haber gelir.'),
+ ('🚙','Araçlarım','Ruhsatını okut, aracın bir kez eklensin; bilgiler şifreli saklanır, her yolculuğun raporu tutulur.'),
+ ('🎫','QR ile biniş','Yolcu biletini sürücüye okutur, biniş kesinleşir; masraf payı anında sürücüye geçer.'),
+ ('🆘','Yolculukta güvenlik','Yolculuğa özel sohbet, sürücüyle sesli arama, gecikme bildirimi ve yönetime konumlu PANİK düğmesi.'),
  ('🧺','Getir listesi','Piknik ve kampta ne getireceğini üstlen, bir gün önce hatırlatma al.'),
  ('⏳','Bekleme listesi','Etkinlik doluysa sıraya gir; yer açılınca otomatik katılırsın.'),
  ('📅','Takvime ekle','Etkinliği telefonunun takvimine ekle, bir gün önce hatırlatma gelsin.'),
