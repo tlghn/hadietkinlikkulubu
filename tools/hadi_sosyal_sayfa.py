@@ -8,7 +8,7 @@ import io, os, re, glob
 R = r'D:\hadietkinlikkulubu'
 APP = 'https://hadisosyal.com/'
 IMG = 'assets/img/app/'
-VER = '20261102n'
+VER = '20261102p'
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
 # Vitrin: büyük, fotoğraflı anlatım (sırayla sol/sağ)
@@ -52,7 +52,8 @@ F = [
  ('🚙','Araçlarım','Ruhsatını okut, aracın bir kez eklensin; okunan bilgiler değiştirilemez, şifreli saklanır, her yolculuğun raporu tutulur.'),
  ('🪪','Doğrulanmış sürücüler','Araç paylaşan herkesin ehliyeti doğrulanır ve her yolculukta geçerliliği kontrol edilir; kimlik doğrulamalı etkinliklerde ehliyet sahibinin kimliği de eşleşir.'),
  ('🎫','QR ile biniş','Yolcu biletini sürücüye okutur, biniş kesinleşir; masraf payı anında sürücüye geçer.'),
- ('🆘','Yolculukta güvenlik','Yolculuğa özel sohbet, sürücüyle sesli arama, gecikme bildirimi ve yönetime konumlu PANİK düğmesi.'),
+ ('🆘','Yolculukta güvenlik','Yolculuğa özel oda (yalnızca şoför ve onaylı yolcular), şoförle birebir sesli arama, gecikme bildirimi ve yönetime konumlu PANİK düğmesi.'),
+ ('✅','Şoför onaylı rezervasyon','Yer ayırttığında talebin şoföre gider; onaylayınca kesinleşir, onaylanmazsa ücretin tamamen iade edilir. Engellediğin kişiler araçlarını göremez.'),
  ('🧺','Getir listesi','Piknik ve kampta ne getireceğini üstlen, bir gün önce hatırlatma al.'),
  ('⏳','Bekleme listesi','Etkinlik doluysa sıraya gir; yer açılınca otomatik katılırsın.'),
  ('📅','Takvime ekle','Etkinliği telefonunun takvimine ekle, bir gün önce hatırlatma gelsin.'),
@@ -100,6 +101,7 @@ F = [
  ('📌','Mesaj sabitleme','Önemli mesajları sohbetin üstüne sabitle.'),
  ('🧵','Konular görünümü','Kalabalık grupları konu başlıklarına ayırarak oku.'),
  ('🎲','Sohbet oyunları','Sohbetin içinde kelime oyunu, zar turu ve düello oyna.'),
+ ('🤖','Sohbet botları','Botlu odalarda karakterler yalnızca odada üye varken konuşur: sohbete katılır, alıntılayarak yanıtlar, güler, emoji ve tepki bırakır; kendi aralarında konuşmaz.'),
  ('🌅','Fotoğraflı duvar kâğıdı','Sohbet balonları seçtiğin fotoğrafın renklerine uyar.'),
  ('👁️','Görüldü bilgisi','Grup ve kanallarda mesajını kaç kişinin gördüğünü bil.'),
  ('↩️','Kaldığın yerden devam','Sohbet son okuduğun yerden açılır; aşağıda kaç mesaj beklediğini görürsün.'),
