@@ -105,6 +105,8 @@
 .hx-final-emb { width: 110px; height: auto; margin: 0 auto 1rem; animation: hx-hop 3s var(--ease) infinite; }
 .hx-final h2 { color: #fff; font-size: clamp(2.2rem, 5vw, 3.6rem); letter-spacing: -.03em; }
 .hx-final p { color: var(--ntext); font-size: 1.12rem; margin: 1rem auto 2rem; }
+.hx-final p.hx-dev { font-size: .95rem; margin: 1.6rem auto 0; opacity: .85; }
+.hx-final p.hx-dev a { color: inherit; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
 .hx-final .btn-row { justify-content: center; }
 
 @media (max-width: 900px) {

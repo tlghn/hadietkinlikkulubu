@@ -8,7 +8,7 @@ import io, os, re, glob
 R = r'D:\hadietkinlikkulubu'
 APP = 'https://hadisosyal.com/'
 IMG = 'assets/img/app/'
-VER = '20261102s'
+VER = '20261102t'
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
 # Vitrin: büyük, fotoğraflı anlatım (sırayla sol/sağ)
@@ -172,6 +172,7 @@ F = [
  ('❄️','Hesabı dondur','Ara vermek istediğinde hesabını dondur, hazır olunca dön.'),
  ('💎','Elmas','Uygulama içi para birimi; fiyatlara KDV dahildir. Biletler, yolculuk, canlı yayın ve işletme ödemeleri satın aldığın ve canlı yayında topladığın Elmas’la yapılır.','hero_cuzdan'),
  ('🎁','Promosyon Elmas','HADİ kampanyalarla üyelere promosyon Elmas’ı hediye eder; bilet, yolculuk, canlı yayın ve işletme ödemelerinde satın alınan Elmas gibi geçer.'),
+ ('🧑‍💻','Geliştiriciler için HADİ','devs.hadisosyal.com: HADİ’ye bağlanan uygulamalar ve yapay zekâ ajanları için belgeler, deneme ortamı ve örnekler. Uygulamalar yalnızca senin verdiğin izinle çalışır; telefonun, e-postan ve konumun hiçbir uygulamaya verilmez.'),
  ('🏦','Havale ile Elmas','HADİ Web’de havale/EFT ile paket ya da “Diğer” seçip istediğin miktarda Elmas al.'),
  ('🪙','Akçe','Görevler, oyunlar ve ödüllerle kazanılır; Akçe kabul eden hizmetlerde harcanır.'),
  ('🔄','Akçe Market','Elmas ile Akçe’yi diğer üyelerle takas et.'),
@@ -300,6 +301,7 @@ main = f'''<main id="icerik" class="hx">
     <h2>Bir dokunuş uzağındasın.</h2>
     <p>HADİ Sosyal’a telefon numaranla gir, başvurunu birkaç dakikada tamamla. Onaylandığın an etkinlikler, sohbetler, oyunlar ve topluluklar seni bekliyor.</p>
     <div class="btn-row"><a class="btn btn--h hx-cta" href="{APP}" rel="noopener">Ücretsiz üye ol {ARROW}</a><a class="btn hx-ghost" href="etkinlikler.html">Yaklaşan etkinlikler</a></div>
+    <p class="hx-dev">Geliştirici misin? Uygulamanı ya da yapay zekâ ajanını HADİ’ye bağla: <a href="https://devs.hadisosyal.com/" rel="noopener" target="_blank">devs.hadisosyal.com</a></p>
   </div>
 </section>
 <script>
@@ -431,6 +433,8 @@ css = r'''/* HADİ Sosyal sayfası — uygulamanın görselleri (Meydan), HADİ 
 .hx-final-emb { width: 110px; height: auto; margin: 0 auto 1rem; animation: hx-hop 3s var(--ease) infinite; }
 .hx-final h2 { color: #fff; font-size: clamp(2.2rem, 5vw, 3.6rem); letter-spacing: -.03em; }
 .hx-final p { color: var(--ntext); font-size: 1.12rem; margin: 1rem auto 2rem; }
+.hx-final p.hx-dev { font-size: .95rem; margin: 1.6rem auto 0; opacity: .85; }
+.hx-final p.hx-dev a { color: inherit; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
 .hx-final .btn-row { justify-content: center; }
 
 @media (max-width: 900px) {
