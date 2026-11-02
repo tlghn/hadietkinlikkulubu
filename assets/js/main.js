@@ -21,10 +21,14 @@
     soylesi: { ad: "Söyleşi & Buluşma", renk: "var(--ink)" }
   };
 
-  // Gösterilen katılım = uygulamadaki katılan + 9 kişilik yönetim ekibi (en fazla kapasite).
-  // Kapasitenin yarısına ulaşmıyorsa gösterilmez (uygulama öncesi katılımlar sayılmadı).
+  // Doluluk %70'in altındaysa gösterilen katılıma 9 kişilik yönetim ekibi eklenir (en fazla kapasite).
+  // Sonuç kapasitenin yarısına ulaşmıyorsa gösterilmez (uygulama öncesi katılımlar sayılmadı).
   var EKIP = 9;
-  function wentCount(n, kap) { if (!n || !kap) return 0; var t = Math.min(n + EKIP, kap); return t >= kap / 2 ? t : 0; }
+  function wentCount(n, kap) {
+    if (!n || !kap) return 0;
+    var t = n < kap * 0.7 ? Math.min(n + EKIP, kap) : n;
+    return t >= kap / 2 ? t : 0;
+  }
   var API = "https://api.hadisosyal.com/public", API_V = "2";
   var EVENTS = [];
   /* API her zaman 200 + liste döner; ağ hatasında da boş liste. */
