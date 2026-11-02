@@ -8,7 +8,7 @@ import io, os, re, glob
 R = r'D:\hadietkinlikkulubu'
 APP = 'https://hadisosyal.com/'
 IMG = 'assets/img/app/'
-VER = '20261102t'
+VER = '20261102u'
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
 # Vitrin: büyük, fotoğraflı anlatım (sırayla sol/sağ)
@@ -172,7 +172,7 @@ F = [
  ('❄️','Hesabı dondur','Ara vermek istediğinde hesabını dondur, hazır olunca dön.'),
  ('💎','Elmas','Uygulama içi para birimi; fiyatlara KDV dahildir. Biletler, yolculuk, canlı yayın ve işletme ödemeleri satın aldığın ve canlı yayında topladığın Elmas’la yapılır.','hero_cuzdan'),
  ('🎁','Promosyon Elmas','HADİ kampanyalarla üyelere promosyon Elmas’ı hediye eder; bilet, yolculuk, canlı yayın ve işletme ödemelerinde satın alınan Elmas gibi geçer.'),
- ('🧑‍💻','Geliştiriciler için HADİ','devs.hadisosyal.com: HADİ’ye bağlanan uygulamalar ve yapay zekâ ajanları için belgeler, deneme ortamı ve örnekler. Uygulamalar yalnızca senin verdiğin izinle çalışır; telefonun, e-postan ve konumun hiçbir uygulamaya verilmez.'),
+ ('🧑‍💻','Geliştiriciler için HADİ','devs.hadisosyal.com: HADİ’ye bağlanan uygulamalar ve yapay zekâ ajanları için her API ucunun açıklaması, 11 programlama dilinde örnek kod, tarayıcıda deneme alanı ve yerleşik terminal. Uygulamalar yalnızca senin verdiğin izinle çalışır; telefonun, e-postan ve konumun hiçbir uygulamaya verilmez.'),
  ('🏦','Havale ile Elmas','HADİ Web’de havale/EFT ile paket ya da “Diğer” seçip istediğin miktarda Elmas al.'),
  ('🪙','Akçe','Görevler, oyunlar ve ödüllerle kazanılır; Akçe kabul eden hizmetlerde harcanır.'),
  ('🔄','Akçe Market','Elmas ile Akçe’yi diğer üyelerle takas et.'),
