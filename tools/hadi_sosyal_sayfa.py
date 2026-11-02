@@ -8,7 +8,7 @@ import io, os, re, glob
 R = r'D:\hadietkinlikkulubu'
 APP = 'https://hadisosyal.com/'
 IMG = 'assets/img/app/'
-VER = '20261102j'
+VER = '20261102k'
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
 # Vitrin: büyük, fotoğraflı anlatım (sırayla sol/sağ)
@@ -49,7 +49,8 @@ F = [
  ('🍽️','Etkinlik menüsü','Fix, set ya da alakart menüyü önceden gör; bilete dahil olanlar ve ayrıca ödenenler açıkça yazar.'),
  ('🚗','Paylaşımlı yolculuk','Aracını paylaş: rota, yakıt masrafı ve güzergah üzerindeki buluşma noktaları kendiliğinden hesaplanır.'),
  ('🙋','Yolculuk talebi','Henüz araç yoksa “Paylaşımlı yolculuk istiyorum” de; araç açılınca haber gelir.'),
- ('🚙','Araçlarım','Ruhsatını okut, aracın bir kez eklensin; bilgiler şifreli saklanır, her yolculuğun raporu tutulur.'),
+ ('🚙','Araçlarım','Ruhsatını okut, aracın bir kez eklensin; okunan bilgiler değiştirilemez, şifreli saklanır, her yolculuğun raporu tutulur.'),
+ ('🪪','Doğrulanmış sürücüler','Kimlik doğrulamalı etkinliklerde sürücünün kimliği ve kendisine ait geçerli ehliyeti doğrulanır.'),
  ('🎫','QR ile biniş','Yolcu biletini sürücüye okutur, biniş kesinleşir; masraf payı anında sürücüye geçer.'),
  ('🆘','Yolculukta güvenlik','Yolculuğa özel sohbet, sürücüyle sesli arama, gecikme bildirimi ve yönetime konumlu PANİK düğmesi.'),
  ('🧺','Getir listesi','Piknik ve kampta ne getireceğini üstlen, bir gün önce hatırlatma al.'),
