@@ -8,7 +8,7 @@ import io, os, re, glob
 R = r'D:\hadietkinlikkulubu'
 APP = 'https://hadisosyal.com/'
 IMG = 'assets/img/app/'
-VER = '20261103c'
+VER = '20261105a'
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
 # Vitrin: büyük, fotoğraflı anlatım (sırayla sol/sağ)
@@ -59,6 +59,7 @@ F = [
  ('🧺','Getir listesi','Piknik ve kampta ne getireceğini üstlen, bir gün önce hatırlatma al.'),
  ('⏳','Bekleme listesi','Etkinlik doluysa sıraya gir; yer açılınca otomatik katılırsın.'),
  ('🎟️','Geçiş bileti','Kulübün sana verdiği tek kullanımlık biletle etkinliğe ücretsiz katıl; Katıl’a dokunduğunda biletin olduğunu görürsün.'),
+ ('🤝','Misafir bileti','Etkinliğe arkadaşını getir: telefonunu yaz, üyeyse onayıyla, değilse başvurusunu açarak biletini al. Arkadaşın HADİ’ye de katılmış olur.'),
  ('📅','Takvime ekle','Etkinliği telefonunun takvimine ekle, bir gün önce hatırlatma gelsin.'),
  ('⭐','Karşılıklı değerlendirme','Etkinlik sonrası katılımcılar birbirini değerlendirir; güvenilir bir topluluk böyle büyür.'),
  ('💡','Etkinlik öner','Aklındaki etkinliği öner, topluluk oylasın, takvime girsin.'),
