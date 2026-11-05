@@ -8,7 +8,7 @@ import io, os, re, glob
 R = r'D:\hadietkinlikkulubu'
 APP = 'https://hadisosyal.com/'
 IMG = 'assets/img/app/'
-VER = '20261105a'
+VER = '20261106a'
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
 # Vitrin: büyük, fotoğraflı anlatım (sırayla sol/sağ)
@@ -87,8 +87,8 @@ F = [
  ('👻','Snap','En çok 1, 2 ya da 3 kez açılabilen anlık fotoğraf gönder.'),
  ('🗒️','Notlar','Mesajlar listesinin üstünde 24 saatlik kısa durumunu paylaş.'),
  ('📣','Story’ni öne çıkar','Seni takip etmeyenlerin story şeridinde de görün.'),
- ('🔴','Canlı yayın','Tek dokunuşla görüntülü yayın aç, kullanmadığın süre iade edilir.','hero_aktuel'),
- ('🎙️','Sesli odalar','Konuşmaya katıl ya da kendi sohbet odanı aç.'),
+ ('🔴','Canlı yayın','Tek dokunuşla görüntülü yayın aç; her hafta ücretsiz yayın süren var, kullanmadığın süre iade edilir.','hero_aktuel'),
+ ('🎙️','Sesli odalar','Konuşmaya katıl ya da kendi sohbet odanı aç; her hafta ücretsiz sesli sohbet süren var.'),
  ('✋','Söz iste','Dinleyiciler el kaldırır, yayıncı söz verir.'),
  ('🛡️','Yayın moderatörleri','Yayınına moderatör ata; yorum sabitlesinler, odayı düzenlesinler.'),
  ('🎧','Temiz ses','Gürültü ve yankı engelleme; web’de ses efektleri ve arka plan filtreleri.'),
@@ -184,6 +184,7 @@ F = [
  ('🎀','Hediyeler','Klasik ve 3B hediyeler; bayramlarda sınırlı sayıda sezonluk hediyeler.'),
  ('❤️','Bağış','Onaylı vakıf ve derneklere bağış yap.'),
  ('⭐','Üye abonelikleri','Sevdiğin üreticilere aylık abone ol.'),
+ ('🎁','Aboneliği ücretsiz dene','Koç, stil, sağlık, finans ve asistan aboneliklerini ödemeden dene; deneme bitince ücret alınmaz.'),
  ('👕','HADİ Mağaza','Tişört, kupa ya da kapüşonluyu kendi yazınla tasarla; kargoyla al.','card_magaza'),
  ('🎧','Sesli kitap','Dinlerken okunan kelime ekranda vurgulanır; Türk klasikleri ücretsiz.'),
  ('🍽️','Rezervasyon ve sipariş','İşletmelerden randevu al, sipariş ver: gel-al, masaya, kurye ya da kargo.','cover_etk_yeme'),
@@ -191,7 +192,7 @@ F = [
  ('💳','Kartla güvenli ödeme','Ödemen, sipariş teslim edilene kadar işletmeye geçmez.'),
  ('🛵','Kurye ol','Kimliğini doğrula, HADİ’de kurye olarak çalış.'),
  ('🏪','İşletme hesabı','İşletmeni HADİ’ye taşı, topluluğa ulaş.'),
- ('🎓','HADİ Akademi','Özellikleri deneyerek öğren; ders ve modüllerde Akçe kazan, rozet topla.','hero_yetenekler'),
+ ('🎓','HADİ Akademi','Özellikleri deneyerek öğren; dersleri istediğin sırayla yap, Akçe kazan, rozet topla.','hero_yetenekler'),
  ('💌','Arkadaşını davet et','Arkadaşın ilk etkinliğine gelince ikinize de Akçe.'),
  ('🎖️','Elçi programı','Şehrinde HADİ Elçisi ol, topluluğu büyüt.'),
  ('🎉','Hoş geldin hediyesi','Hesabın açılınca başlangıç Elmas’ı ve Akçe’si cüzdanına yüklenir.','evim_eglenceli'),
