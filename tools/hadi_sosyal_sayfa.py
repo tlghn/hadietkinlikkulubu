@@ -3,12 +3,14 @@
 #   1) Aşağıdaki F listesine (emoji, ad, tek cümle[, assets/img/app görseli]) ekle / çıkar; vitrin için SPOT.
 #   2) VER'i artır (Cloudflare önbelleği için) ve çalıştır:  python tools/hadi_sosyal_sayfa.py
 #   3) Diğer sayfalardaki ?v= ekleri de VER ile aynı olmalı (betik eski eki değiştirir).
+# 6 Kasım 2026: HADİ Akademi satırı kaldırıldı (kurucu: Akademi kapanacak). Sayfa statiktir, hizmet anahtarını okumaz: Akademi yeniden
+# açılırsa satır buraya elle geri eklenir ve VER artırılır.
 # Yalnızca üyelere açık, canlı özellikler; test/kapalı hizmetler, ekip araçları ve kesin fiyat/ödül rakamları yazılmaz.
 import io, os, re, glob
 R = r'D:\hadietkinlikkulubu'
 APP = 'https://hadisosyal.com/'
 IMG = 'assets/img/app/'
-VER = '20261106a'
+VER = '20261106b'
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
 # Vitrin: büyük, fotoğraflı anlatım (sırayla sol/sağ)
@@ -184,7 +186,7 @@ F = [
  ('🎀','Hediyeler','Klasik ve 3B hediyeler; bayramlarda sınırlı sayıda sezonluk hediyeler.'),
  ('❤️','Bağış','Onaylı vakıf ve derneklere bağış yap.'),
  ('⭐','Üye abonelikleri','Sevdiğin üreticilere aylık abone ol.'),
- ('🎁','Aboneliği ücretsiz dene','Koç, stil, sağlık, finans ve asistan aboneliklerini ödemeden dene; deneme bitince ücret alınmaz.'),
+ ('🎁','Aboneliği ücretsiz dene','Premium, Mavi Tik, koç, stil, sağlık, finans ve asistan aboneliklerini ödemeden dene; deneme bitince ücret alınmaz.'),
  ('👕','HADİ Mağaza','Tişört, kupa ya da kapüşonluyu kendi yazınla tasarla; kargoyla al.','card_magaza'),
  ('🎧','Sesli kitap','Dinlerken okunan kelime ekranda vurgulanır; Türk klasikleri ücretsiz.'),
  ('🍽️','Rezervasyon ve sipariş','İşletmelerden randevu al, sipariş ver: gel-al, masaya, kurye ya da kargo.','cover_etk_yeme'),
@@ -192,7 +194,6 @@ F = [
  ('💳','Kartla güvenli ödeme','Ödemen, sipariş teslim edilene kadar işletmeye geçmez.'),
  ('🛵','Kurye ol','Kimliğini doğrula, HADİ’de kurye olarak çalış.'),
  ('🏪','İşletme hesabı','İşletmeni HADİ’ye taşı, topluluğa ulaş.'),
- ('🎓','HADİ Akademi','Özellikleri deneyerek öğren; dersleri istediğin sırayla yap, Akçe kazan, rozet topla.','hero_yetenekler'),
  ('💌','Arkadaşını davet et','Arkadaşın ilk etkinliğine gelince ikinize de Akçe.'),
  ('🎖️','Elçi programı','Şehrinde HADİ Elçisi ol, topluluğu büyüt.'),
  ('🎉','Hoş geldin hediyesi','Hesabın açılınca başlangıç Elmas’ı ve Akçe’si cüzdanına yüklenir.','evim_eglenceli'),
